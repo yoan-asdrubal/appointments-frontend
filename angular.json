@@ -105,5 +105,8 @@
       }
     }
   },
-  "defaultProject": "appointments"
+  "defaultProject": "appointments",
+  "cli": {
+    "defaultCollection": "@datorama/akita"
+  }
 }
