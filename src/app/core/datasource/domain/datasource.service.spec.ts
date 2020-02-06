@@ -88,4 +88,35 @@ describe('DatasourceService', () => {
         req.flush(todo);
     });
 
+    it('should GET request with body params', function() {
+        const todo = {
+            id: 1,
+            subject: 'Todo test',
+            description: 'Todo to test request with url params'
+        };
+
+        const datasourceOption: DatasourceOption = {
+            body: todo
+        };
+        service.request(model, 'POST', datasourceOption)
+
+            .subscribe(response => {
+                expect(response.id).toEqual(todo.id);
+                expect(response.subject).toEqual(todo.subject);
+                expect(response.description).toEqual(todo.description);
+            });
+
+        const req = httpTestingController.expectOne(`${apiUrl}`);
+
+        expect(req.request.method).toEqual('POST');
+
+        const body = req.request.body;
+
+        expect(body.id).toEqual(todo.id);
+        expect(body.subject).toEqual(todo.subject);
+        expect(body.description).toEqual(todo.description);
+
+        req.flush(todo);
+    });
+
 });
