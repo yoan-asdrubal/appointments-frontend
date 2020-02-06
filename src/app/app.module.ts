@@ -8,6 +8,7 @@ import {AkitaNgDevtools} from '@datorama/akita-ngdevtools';
 import {environment} from '../environments/environment';
 import {DatasourceModule} from './core/datasource/datasource.module';
 import {DATASOURCE_CONFIG} from './core/datasource/datasource.url.config';
+import {NotificationsModule} from '@app/core/notifications/notifications.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {DATASOURCE_CONFIG} from './core/datasource/datasource.url.config';
         AppRoutingModule,
         BrowserAnimationsModule,
         DatasourceModule.forRoot(DATASOURCE_CONFIG),
+        NotificationsModule,
         environment.production ? [] : AkitaNgDevtools.forRoot(),
     ],
     bootstrap: [AppComponent]

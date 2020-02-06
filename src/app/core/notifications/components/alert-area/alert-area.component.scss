@@ -1,0 +1,19 @@
+/*!
+ *
+ * Yoan Asdrubal Quintana Ramirez.
+ *  12/8/2019
+ *
+ */
+
+.alerts {
+	position: absolute;
+	top: 13.4%;
+	right: calc(50% - 220px);
+	z-index: 1000;
+	
+	& > li {
+		margin: 5px 0;
+		list-style: none;
+	}
+}
+

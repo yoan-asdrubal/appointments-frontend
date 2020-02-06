@@ -1,0 +1,55 @@
+/*!
+ *
+ * Yoan Asdrubal Quintana Ramirez.
+ *  12/8/2019
+ *
+ */
+
+.alert {
+	min-height: 70px;
+	width: 440px;
+	border-radius: 4px;
+	box-shadow: 0 4px 10px 0 rgba(25, 90, 67, 0.5);
+	display: flex;
+	align-items: center;
+	
+	.alert-icon {
+		margin-left: 16px;
+		margin-right: 26px;
+	}
+	
+	.content {
+		display: flex;
+		flex: 1 1;
+		align-items: center;
+		
+		.title {
+			margin-right: 10px;
+		}
+	}
+	
+	.btn-close {
+		margin-right: 12px;
+		cursor: pointer;
+	}
+	
+	&.alert-success {
+		background-color: #77e9c0;
+		color: #01603e;
+	}
+	
+	&.alert-danger {
+		background-color: #dd4972;
+		color: #ffffff;
+	}
+	
+	&.alert-info {
+	
+	}
+	
+	&.alert-warning {
+	
+	}
+}
+
+

@@ -1,0 +1,16 @@
+<div [@alert] class="alert alert-{{alertClass()}}">
+	<div class="alert-icon">
+		<img *ngIf="alertClass()==='success'" src="assets/img/app/success/success.png" alt="Success"/>
+		<img *ngIf="alertClass()==='danger'" src="assets/img/app/error/error.png" alt="Error"/>
+	</div>
+	<div class="content">
+		<div class="title"><h3>{{alert.title}}</h3></div>
+		<div *ngIf="alert.message" class="message" [innerHtml]="alert.message"></div>
+	</div>
+	<div class="btn-close">
+		<img (click)="close.emit(true)" *ngIf="alertClass()==='success'"
+		     src="assets/img/app/close_success/close_success.png" alt="Close"/>
+		<img (click)="close.emit(true)" *ngIf="alertClass()==='danger'" src="assets/img/app/close_error/close_error.png"
+		     alt="Close"/>
+	</div>
+</div>
