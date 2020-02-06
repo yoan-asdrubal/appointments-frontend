@@ -6,6 +6,8 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AkitaNgDevtools} from '@datorama/akita-ngdevtools';
 import {environment} from '../environments/environment';
+import {DatasourceModule} from './core/datasource/datasource.module';
+import {DATASOURCE_CONFIG} from './core/datasource/datasource.url.config';
 
 
 @NgModule({
@@ -16,6 +18,7 @@ import {environment} from '../environments/environment';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        DatasourceModule.forRoot(DATASOURCE_CONFIG),
         environment.production ? [] : AkitaNgDevtools.forRoot(),
     ],
     bootstrap: [AppComponent]
