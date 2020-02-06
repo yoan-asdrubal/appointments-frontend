@@ -3,6 +3,7 @@ import {TestBed} from '@angular/core/testing';
 import {DatasourceService} from './datasource.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {DATASOURCE_ROOT_CONFIG, DatasourceConfig} from '../datasource.config';
+import {DatasourceOption} from '@app/core/datasource/domain/datasource.model';
 
 describe('DatasourceService', () => {
     const apiUrl = 'http://localhost:8080/api/todo';
@@ -60,6 +61,31 @@ describe('DatasourceService', () => {
         expect(req.request.params.keys.length).toEqual(0);
 
         req.flush(todos);
+    });
+
+    it('should GET request with url params', function() {
+        const todo = {
+            id: 1,
+            subject: 'Todo to test request with url params'
+        };
+
+        const datasourceOption: DatasourceOption = {
+            urlParams: {
+                id: todo.id
+            }
+        };
+        service.request(model, 'GET', datasourceOption)
+
+            .subscribe(response => {
+                expect(response.id).toEqual(todo.id);
+                expect(response.subject).toEqual(todo.subject);
+            });
+
+        const req = httpTestingController.expectOne(`${apiUrl}/${todo.id}`);
+
+        expect(req.request.method).toEqual('GET');
+
+        req.flush(todo);
     });
 
 });
