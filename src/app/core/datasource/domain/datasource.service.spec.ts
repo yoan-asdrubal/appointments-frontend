@@ -1,4 +1,4 @@
-import {inject, TestBed} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import {DatasourceService} from './datasource.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -20,15 +20,19 @@ describe('DatasourceService', () => {
             }
         }
     };
+    let service: DatasourceService;
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [{provide: DATASOURCE_ROOT_CONFIG, useValue: DATASOURCE_CONFIG_TEST}
+                , DatasourceService
             ]
         });
+        service = TestBed.get(DatasourceService);
+
     });
 
-    it('should be created', inject([DatasourceService], (service: DatasourceService) => {
+    it('should be created', () => {
         expect(service).toBeTruthy();
-    }));
+    });
 });
