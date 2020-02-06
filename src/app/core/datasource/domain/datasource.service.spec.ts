@@ -19,6 +19,7 @@ describe('DatasourceService', () => {
                     POST: {method: 'POST', url: '', name: 'Save Todo'},
                     PUT: {method: 'POST', url: '', name: 'Update Todo'},
                     DELETE: {method: 'DELETE', url: '/{id}', name: 'Delete Todo'},
+                    CHECK_ALL: {method: 'POST', url: '/{id}', name: 'Save Todo'},
                 },
             }
         }
@@ -88,7 +89,7 @@ describe('DatasourceService', () => {
         req.flush(todo);
     });
 
-    it('should GET request with body params', function() {
+    it('should POST request with body params', function() {
         const todo = {
             id: 1,
             subject: 'Todo test',
@@ -115,6 +116,50 @@ describe('DatasourceService', () => {
         expect(body.id).toEqual(todo.id);
         expect(body.subject).toEqual(todo.subject);
         expect(body.description).toEqual(todo.description);
+
+        req.flush(todo);
+    });
+
+    it('should  request with url params, query params and body', function() {
+        const todo = {
+            id: 1,
+            subject: 'Todo test',
+            description: 'Todo to test request with url params'
+        };
+
+        const datasourceOption: DatasourceOption = {
+            queryParams: {
+                tested: true,
+                search: 'test',
+                size: 1
+            },
+            urlParams: {
+                id: todo.id
+            },
+            body: todo
+        };
+        service.request(model, 'CHECK_ALL', datasourceOption)
+
+            .subscribe(response => {
+                expect(response.id).toEqual(todo.id);
+                expect(response.subject).toEqual(todo.subject);
+                expect(response.description).toEqual(todo.description);
+            });
+
+        const req = httpTestingController.expectOne(`${apiUrl}/${todo.id}?tested=true&search=test&size=1`);
+
+        expect(req.request.method).toEqual('POST');
+
+        const body = req.request.body;
+
+        expect(body.id).toEqual(todo.id);
+        expect(body.subject).toEqual(todo.subject);
+        expect(body.description).toEqual(todo.description);
+
+        const params = req.request.params;
+        expect(params.get('tested')).toBeTruthy();
+        expect(+params.get('size')).toEqual(1);
+        expect(params.get('search')).toBe('test');
 
         req.flush(todo);
     });
