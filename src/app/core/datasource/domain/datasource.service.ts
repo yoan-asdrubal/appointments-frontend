@@ -113,9 +113,6 @@ export class DatasourceService {
     }
 
     private _resolveUrlParams(url: string, urlParams: any) {
-        if (!urlParams) {
-            return url;
-        }
 
         return Object.keys(urlParams).reduce((_url, key) => {
             return _url.replace(new RegExp('{' + key + '}', 'g'), urlParams[key]);
@@ -164,7 +161,4 @@ export class DatasourceService {
         }
     }
 
-    getDatasourceConfig() {
-        return this._dsConfig;
-    }
 }

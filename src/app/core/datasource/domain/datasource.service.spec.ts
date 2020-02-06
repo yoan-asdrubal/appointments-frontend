@@ -21,6 +21,20 @@ describe('DatasourceService', () => {
                     DELETE: {method: 'DELETE', url: '/{id}', name: 'Delete Todo'},
                     CHECK_ALL: {method: 'POST', url: '/{id}', name: 'Save Todo'},
                 },
+            },
+            StaticModel: {
+                model: 'StaticModel',
+                items: [
+                    {
+                        id: 1,
+                        label: 'Static 1',
+                        value: 'Static1'
+                    }, {
+                        id: 2,
+                        label: 'Static 2',
+                        value: 'Static2'
+                    }
+                ]
             }
         }
     };
@@ -164,4 +178,20 @@ describe('DatasourceService', () => {
         req.flush(todo);
     });
 
+    it('should return items of static model', function() {
+        service.request('StaticModel', '')
+
+            .subscribe((response: any[]) => {
+                expect(response.length).toEqual(2);
+                const item1 = response[0];
+                expect(item1.id).toEqual(1);
+                expect(item1.label).toEqual('Static 1');
+                expect(item1.value).toEqual('Static1');
+
+                const item2 = response[1];
+                expect(item2.id).toEqual(2);
+                expect(item2.label).toEqual('Static 2');
+                expect(item2.value).toEqual('Static2');
+            });
+    });
 });
