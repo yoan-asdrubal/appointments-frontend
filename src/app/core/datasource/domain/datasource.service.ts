@@ -1,10 +1,12 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, Optional} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Datasource, DatasourceAPI, DatasourceOption} from './datasource.model';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 // @ts-ignore
 import {DATASOURCE_ROOT_CONFIG, DatasourceConfig} from '@app/core/datasource/datasource.config';
 import {catchError, tap} from 'rxjs/operators';
+import {NotificationsService} from '@app/core/notifications/domain/notifications.service';
+import {Alert} from '@app/core/notifications/domain/notifications.model';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +15,8 @@ export class DatasourceService {
 
     constructor(
         private _http: HttpClient,
-        @Inject(DATASOURCE_ROOT_CONFIG) private _dsConfig: DatasourceConfig
+        @Inject(DATASOURCE_ROOT_CONFIG) private _dsConfig: DatasourceConfig,
+        @Optional() private notificationS: NotificationsService
     ) {
         this._setBaseHrefToUrls();
     }
@@ -27,7 +30,7 @@ export class DatasourceService {
             return of(ds.items);
         }
 
-        const api = this.getDatasourceApi(model, action);
+        const api: DatasourceAPI = this.getDatasourceApi(model, action);
         const url = this._resolveUrl(api, options);
 
         const requestOptions = this._resolveReqOptions(options);
@@ -41,7 +44,12 @@ export class DatasourceService {
                     }
                 }),
                 catchError((err: HttpErrorResponse) => {
+                    if (staticOptions.showError && !!this.notificationS) {
+                        const a: Alert = Alert.of(api.method, err, api.name);
+                        this.notificationS.show(a);
+                    }
                     throw err;
+
                 })
             );
 
