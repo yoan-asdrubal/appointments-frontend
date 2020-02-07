@@ -1,9 +1,6 @@
-
 language: node_js
-
 node_js:
     - "lts/*"
-
 cache:
 
     directories:
@@ -13,23 +10,19 @@ cache:
     override:
         - npm ci
         - npm run cy:verify
-
-install:
-    - npm ci
-
+branches:
+    only:
+        - develop
+before_script:
+    - npm install -g @angular/cli
 script:
+    - npm install
     - ng build --prod
+    - npm run jest:run
     - npm run cy:verify
     - npm run ci:cy-run
-    - npm run jest:run
-
 deploy:
-  provider: firebase
-  skip_cleanup: true
-  keep_history: true
-  token:
-    secure: $FIREBASE_TOKEN
-   project: "appointments-ui"
-  on:
-    branch: develop
-
+    skip_cleanup: true
+    provider: firebase
+    token:
+        secure: $FIREBASE_TOKEN
