@@ -1,14 +1,17 @@
-import {guid, ID} from '@datorama/akita';
+import {ID} from '@datorama/akita';
 
-export interface PersonaModel {
+export interface AppointmentModel {
     id: ID;
-    nombre: string;
-    edad: number;
+    from: string;
+    to: string;
+    subject: string;
+    description: string;
+    area: string;
 }
 
 /**
  * A factory function that creates PersonaModel
  */
-export function createPersona({nombre, edad}: Partial<PersonaModel>) {
-    return {id: guid(), nombre, edad} as PersonaModel;
+export function createAppointment({id, from, to, subject, description, area}: Partial<AppointmentModel>) {
+    return {id: id, from: from, to: to, subject: subject, description: description, area: area} as AppointmentModel;
 }

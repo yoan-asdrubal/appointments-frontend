@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {PersonaState, PersonaStore} from './persona.store';
-import {BaseQuery} from "../../core/redux/base.query";
+import {AppointmentState, AppointmentStore} from './appointment.store';
+import {BaseQuery} from '@app/core/datasource/redux/base.query';
 
 @Injectable({
     providedIn: 'root'
 })
-export class PersonaQuery extends BaseQuery<PersonaState> {
+export class AppointmentQuery extends BaseQuery<AppointmentState> {
 
-    constructor(protected store: PersonaStore) {
+    constructor(protected store: AppointmentStore) {
         super(store);
     }
 }

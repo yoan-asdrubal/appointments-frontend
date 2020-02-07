@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {StoreConfig} from '@datorama/akita';
-import {BaseState, BaseStore, createInitialState} from "../../core/redux/base.store";
+import {BaseState, BaseStore, createInitialState} from '@app/core/datasource/redux/base.store';
 
-export interface PersonaState extends BaseState {
+export interface AppointmentState extends BaseState {
 
 }
 
-const initialState = createInitialState({})
+const initialState = createInitialState({});
 
 @Injectable({providedIn: 'root'})
-@StoreConfig({name: 'persona'})
-export class PersonaStore extends BaseStore<PersonaState> {
+@StoreConfig({name: 'appointment'})
+export class AppointmentStore extends BaseStore<AppointmentState> {
 
     constructor() {
         super(initialState);
