@@ -9,6 +9,7 @@ import {environment} from '../environments/environment';
 import {DatasourceModule} from './core/datasource/datasource.module';
 import {DATASOURCE_CONFIG} from './core/datasource/datasource.url.config';
 import {NotificationsModule} from '@app/core/notifications/notifications.module';
+import {AppLayoutModule} from '@app/layout/app-layout.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {NotificationsModule} from '@app/core/notifications/notifications.module'
         BrowserAnimationsModule,
         DatasourceModule.forRoot(DATASOURCE_CONFIG),
         NotificationsModule,
+        AppLayoutModule,
         environment.production ? [] : AkitaNgDevtools.forRoot(),
     ],
     bootstrap: [AppComponent]
