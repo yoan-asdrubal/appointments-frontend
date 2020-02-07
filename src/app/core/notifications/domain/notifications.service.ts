@@ -40,9 +40,6 @@ export class NotificationsService {
      *
      */
     push(alert: Alert) {
-        if (!alert) {
-            return;
-        }
         this.alerts.push(alert);
 
         this.$alerts.next(this.alerts);
