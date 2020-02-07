@@ -10,8 +10,10 @@
     "e2e": "ng e2e",
     "jest:run": "npx jest ",
     "jest:coverage": "npx jest --coverage ",
+    "ci:start-server": "angular-http-server --path ./dist/appointments -p 4200",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
+    "ci:cy-run": "start-server-and-test ci:start-server http://localhost:4200 cy:run",
     "cy:verify": "cypress verify"
   },
   "private": true,
@@ -28,6 +30,7 @@
     "@angular/router": "~8.0.1",
     "@datorama/akita": "^4.19.1",
     "@datorama/akita-ng-entity-service": "^1.0.0",
+    "angular-http-server": "^1.9.0",
     "cypress": "^3.8.3",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.4.0",
