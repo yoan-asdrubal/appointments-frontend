@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {AppointmentState, AppointmentStore} from './appointment.store';
-import {AppointmentQuery} from './appointment.query';
-import {AppointmentModel, createAppointment} from './menu-item.model';
+import {MenuItemState, MenuItemStore} from './menu-item-store.service';
+import {MenuItemQuery} from './menu-item-query.service';
+import {createMenuItem, MenuItemModel} from './menu-item.model';
 import {BaseService} from '@app/core/datasource/redux/base.service';
 import {DatasourceService} from '@app/core/datasource/domain/datasource.service';
 import {DATASOURCE_NAMES} from '@app/core/datasource/datasource.url.config';
@@ -9,16 +9,16 @@ import {DATASOURCE_NAMES} from '@app/core/datasource/datasource.url.config';
 const model = DATASOURCE_NAMES.MODEL_APPOINTMENT;
 
 @Injectable({providedIn: 'root'})
-export class AppointmentService extends BaseService<AppointmentState, AppointmentModel> {
+export class MenuItemService extends BaseService<MenuItemState, MenuItemModel> {
 
-    constructor(private appointmentStore: AppointmentStore
-        , private appointmentQuery: AppointmentQuery
+    constructor(private menuItemStore: MenuItemStore
+        , private menuItemQuery: MenuItemQuery
         , datasource: DatasourceService) {
-        super(appointmentStore, appointmentQuery, datasource);
+        super(menuItemStore, menuItemQuery, datasource);
     }
 
     createFunction(): Function {
-        return createAppointment;
+        return createMenuItem;
     }
 
     model(): string {

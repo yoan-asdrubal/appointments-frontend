@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {AppointmentState, AppointmentStore} from './appointment.store';
+import {AppointmentState, MenuItemStore} from './menu-item-store.service';
 import {BaseQuery} from '@app/core/datasource/redux/base.query';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AppointmentQuery extends BaseQuery<AppointmentState> {
+export class MenuItemQuery extends BaseQuery<AppointmentState> {
 
-    constructor(protected store: AppointmentStore) {
+    constructor(protected store: MenuItemStore) {
         super(store);
     }
 }

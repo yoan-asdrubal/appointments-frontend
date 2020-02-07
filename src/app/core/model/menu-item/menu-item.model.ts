@@ -9,6 +9,6 @@ export interface MenuItemModel {
 /**
  * A factory function that creates MenuItemModel
  */
-export function createAppointment({id, route, label}: Partial<MenuItemModel>) {
+export function createMenuItem({id, route, label}: Partial<MenuItemModel>) {
     return {id: id, route: route, label: label} as MenuItemModel;
 }
