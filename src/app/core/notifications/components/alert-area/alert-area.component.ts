@@ -23,7 +23,7 @@ export class AlertAreaComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 	}
 
-	doClose(alert: Alert) {
+	closeAlert(alert: Alert) {
 		this._service.doClose(alert);
 	}
 }

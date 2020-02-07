@@ -1,6 +1,6 @@
 <ul class="alerts">
   <ng-template ngFor let-alert [ngForOf]="alerts | async">
-    <li><alert [alert]="alert" (close)="doClose(alert)"></alert></li>
+    <li><alert [alert]="alert" (close)="closeAlert(alert)"></alert></li>
   </ng-template>
 </ul>
 

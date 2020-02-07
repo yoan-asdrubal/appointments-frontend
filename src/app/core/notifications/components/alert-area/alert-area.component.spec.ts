@@ -23,13 +23,12 @@ describe('AlertAreaComponent', () => {
         componentFixture.detectChanges();
     });
 
-    afterEach(() => {
-        jest.clearAllTimers();
-    });
     it('should created', function() {
         expect(component).toBeTruthy();
     });
-    it('should show notifications and dismiss each one after 5000 ms', function() {
+
+
+    it('should show notifications ,dismiss after 5000 ms and close by user action', function() {
         jest.useFakeTimers();
 
         service.show(new Alert(AlertType.SUCCESS, 'Alert Success', 'Show Alert Success'));
@@ -77,6 +76,77 @@ describe('AlertAreaComponent', () => {
         expect(componentFixture.nativeElement.querySelector('alert-warning')).toBeFalsy();
         expect(componentFixture.nativeElement.querySelector('alert')).toBeFalsy();
 
+        const successAlert = new Alert(AlertType.SUCCESS, 'Alert Success', 'Show Alert Success');
+        const dangerAlert = new Alert(AlertType.DANGER, 'Alert Danger', 'Show Alert Danger');
+        service.show(successAlert);
+        setTimeout(() => {
+            service.show(dangerAlert);
+        }, 1000);
+
+        jest.advanceTimersByTime(1000);
+        componentFixture.detectChanges();
+        expect(componentFixture.nativeElement.querySelectorAll('alert').length).toEqual(2);
+
+        // Close Danger Alert after 1000 ms
+        jest.advanceTimersByTime(1000);
+        componentFixture.detectChanges();
+
+        componentFixture.nativeElement.querySelector('.alert-danger .btn-close img').click();
+        componentFixture.detectChanges();
+
+        expect(componentFixture.nativeElement.querySelector('alert-danger')).toBeFalsy();
+        expect(componentFixture.nativeElement.querySelectorAll('alert').length).toEqual(1);
+
+        jest.advanceTimersByTime(1000);
+        componentFixture.detectChanges();
+
+        // Close Success Alert 1000 ms later
+        componentFixture.nativeElement.querySelector('.alert-success .btn-close img').click();
+
+        componentFixture.detectChanges();
+        expect(componentFixture.nativeElement.querySelector('alert-success')).toBeFalsy();
+        expect(componentFixture.nativeElement.querySelectorAll('alert').length).toEqual(0);
 
     });
+
+    // it('should close alert by user action', function() {
+    //
+    //
+    //     jest.useFakeTimers();
+    //
+    //     const successAlert = new Alert(AlertType.SUCCESS, 'Alert Success', 'Show Alert Success');
+    //     const dangerAlert = new Alert(AlertType.DANGER, 'Alert Danger', 'Show Alert Danger');
+    //     service.show(successAlert);
+    //     setTimeout(() => {
+    //         service.show(dangerAlert);
+    //     }, 1000);
+    //
+    //     jest.advanceTimersByTime(1000);
+    //     componentFixture.detectChanges();
+    //     expect(componentFixture.nativeElement.querySelectorAll('alert').length).toEqual(2);
+    //
+    //     // Close Danger Alert after 1000 ms
+    //     jest.advanceTimersByTime(1000);
+    //     componentFixture.detectChanges();
+    //
+    //     componentFixture.nativeElement.querySelector('.alert-danger .btn-close img').click();
+    //     componentFixture.detectChanges();
+    //
+    //     expect(componentFixture.nativeElement.querySelector('alert-danger')).toBeFalsy();
+    //     expect(componentFixture.nativeElement.querySelectorAll('alert').length).toEqual(1);
+    //
+    //     jest.advanceTimersByTime(1000);
+    //     componentFixture.detectChanges();
+    //
+    //     // Close Success Alert 1000 ms later
+    //     componentFixture.nativeElement.querySelector('.alert-success .btn-close img').click();
+    //
+    //     componentFixture.detectChanges();
+    //     expect(componentFixture.nativeElement.querySelector('alert-success')).toBeFalsy();
+    //     expect(componentFixture.nativeElement.querySelectorAll('alert').length).toEqual(0);
+    //
+    //     jest.clearAllTimers();
+    // });
+
+
 });
