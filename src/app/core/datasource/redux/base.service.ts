@@ -2,38 +2,33 @@ import {BaseState, BaseStore} from './base.store';
 import {BaseQuery} from './base.query';
 import {BaseModel} from './base.model';
 import {EntityState} from '@datorama/akita';
+import {DatasourceOption} from '@app/core/datasource/domain/datasource.model';
+import {DatasourceService} from '@app/core/datasource/domain/datasource.service';
+import {tap} from 'rxjs/operators';
 
 export abstract class BaseService<T extends BaseState | EntityState, M extends BaseModel> {
 
-    constructor(private store: BaseStore<T>, private query: BaseQuery<T>) {
-    }
-
-    getValue() {
-        return this.query.getValue();
-    }
-
-    getAll() {
-        return this.query.selectAll();
-    }
-
-    add(item: any) {
-        const newP = this.createFunction()(item);
-        this.store.add(newP);
-    }
-
-
-    update(id, item: Partial<any>) {
-        this.store.update(id, item);
-    }
-
-    remove(id: any) {
-        this.store.remove(id);
+    constructor(private store: BaseStore<T>
+        , private query: BaseQuery<T>
+        , private datasource: DatasourceService) {
     }
 
     abstract createFunction(): Function;
 
+    abstract model(): string;
+
+    list(options: DatasourceOption, action = 'LIST') {
+        this.datasource.request(this.model(), action, options)
+            .pipe(
+                tap(data => this.store.upsertMany(data))
+            )
+            .subscribe();
+
+        return this.query.selectAll();
+    }
+
     /**
-     * etch(action = 'LIST', options: ModelOption = {}): Observable<T[]> {
+     * fetch(action = 'LIST', options: ModelOption = {}): Observable<T[]> {
 
 		this.dispatchAction(ListModelAction, action, options);
 
