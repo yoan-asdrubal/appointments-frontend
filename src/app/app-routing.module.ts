@@ -14,6 +14,10 @@ const routes: Routes = [
                 redirectTo: 'appointment'
             },
             {
+                path: 'appointment',
+                loadChildren: () => import('./application/appointment/appointment.module').then((m) => m.AppointmentModule)
+            },
+            {
                 path: 'pathNotFound', component: Error404Component
             },
             {
