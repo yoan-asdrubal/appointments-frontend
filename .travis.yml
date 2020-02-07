@@ -10,9 +10,6 @@ cache:
     override:
         - npm ci
         - npm run cy:verify
-branches:
-    only:
-        - develop
 before_script:
     - npm install -g @angular/cli
 script:
@@ -22,7 +19,9 @@ script:
     - npm run cy:verify
     - npm run ci:cy-run
 deploy:
-    skip_cleanup: true
     provider: firebase
+    skip_cleanup: true
     token:
         secure: $FIREBASE_TOKEN
+    on
+        branch: develop
