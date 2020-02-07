@@ -9,7 +9,7 @@ export interface MenuItemState extends BaseState {
 const initialState = createInitialState({});
 
 @Injectable({providedIn: 'root'})
-@StoreConfig({name: 'appointment'})
+@StoreConfig({name: 'menuItem'})
 export class MenuItemStore extends BaseStore<MenuItemState> {
 
     constructor() {

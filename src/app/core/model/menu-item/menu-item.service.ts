@@ -6,7 +6,7 @@ import {BaseService} from '@app/core/datasource/redux/base.service';
 import {DatasourceService} from '@app/core/datasource/domain/datasource.service';
 import {DATASOURCE_NAMES} from '@app/core/datasource/datasource.url.config';
 
-const model = DATASOURCE_NAMES.MODEL_APPOINTMENT;
+const model = DATASOURCE_NAMES.MODEL_MENU_ITEM;
 
 @Injectable({providedIn: 'root'})
 export class MenuItemService extends BaseService<MenuItemState, MenuItemModel> {
