@@ -15,20 +15,21 @@ import {MenuItemService} from '@app/core/model/menu-item/menu-item.service';
 import {MenuItemQuery} from '@app/core/model/menu-item/menu-item-query.service';
 import {MenuItemStore} from '@app/core/model/menu-item/menu-item-store.service';
 import {of} from 'rxjs';
+import {createMenuItem} from '@app/core/model/menu-item/menu-item.model';
 
 const items = [
-    {
+    createMenuItem({
         'id': 1,
         'label': 'Appointments',
         'route': '/appointment',
         'cy': 'appointment-route'
-    },
-    {
+    }),
+    createMenuItem({
         'id': 2,
         'label': 'Logs',
         'route': '/logs',
         'cy': 'log-route'
-    }
+    })
 ];
 describe('NavigationComponent', () => {
     let component: NavigationComponent;
