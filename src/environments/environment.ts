@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
     api: {
+        menu: '/assets/menu/menu.json',
         appointment: ''
     }
 };
