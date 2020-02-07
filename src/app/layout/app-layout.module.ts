@@ -8,6 +8,7 @@ import {MatListModule} from '@angular/material/list';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
 import {Error404Component} from '@app/layout/components/error404/error404.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
     declarations: [NavigationComponent, Error404Component],
@@ -19,7 +20,8 @@ import {Error404Component} from '@app/layout/components/error404/error404.compon
         MatSidenavModule,
         MatIconModule,
         MatListModule,
-        LayoutModule
+        LayoutModule,
+        RouterModule
     ]
 })
 export class AppLayoutModule {
