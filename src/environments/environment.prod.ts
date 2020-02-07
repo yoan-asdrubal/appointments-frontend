@@ -2,6 +2,6 @@ export const environment = {
     production: true,
     api: {
         menu: '/assets/menu/menu.json',
-        appointment: ''
+        appointment: 'https://appointments-backend.herokuapp.com'
     }
 };
