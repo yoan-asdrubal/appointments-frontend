@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "label": "Appointments",
+    "route": "/appointment",
+    "cy": "appointment-route"
+  },
+  {
+    "id": 2,
+    "label": "Logs",
+    "route": "/logs",
+    "cy": "log-route"
+  }
+]
