@@ -17,7 +17,7 @@ export abstract class BaseService<T extends BaseState | EntityState, M extends B
 
     abstract model(): string;
 
-    list(options: DatasourceOption, action = 'LIST') {
+    list(options: DatasourceOption = {}, action = 'LIST') {
         this.datasource.request(this.model(), action, options)
             .pipe(
                 tap(data => this.store.upsertMany(data))
