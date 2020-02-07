@@ -39,9 +39,9 @@ export class DatasourceService {
         return this._http.request(api.method, url, requestOptions)
             .pipe(
                 tap((response: any) => {
-                    if (response.statusCode !== 200 && response !== true) {
-                        throw response;
-                    }
+                    // if (response.statusCode !== 200 && response !== true) {
+                    //     throw response;
+                    // }
                 }),
                 catchError((err: HttpErrorResponse) => {
                     if (staticOptions.showError && !!this.notificationS) {
