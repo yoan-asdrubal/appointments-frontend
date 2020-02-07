@@ -1,14 +1,14 @@
 import {TestBed} from '@angular/core/testing';
-import {NotificationsService} from '@app/core/notifications/domain/notifications.service';
+import {NotificationService} from '@app/core/notifications/domain/notification.service';
 import {Alert, AlertType} from '@app/core/notifications/domain/notifications.model';
 
 describe('DatasourceService', () => {
-    let service: NotificationsService;
+    let service: NotificationService;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [NotificationsService]
+            providers: [NotificationService]
         });
-        service = TestBed.get(NotificationsService);
+        service = TestBed.get(NotificationService);
     });
 
 

@@ -1,23 +1,23 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {AlertAreaComponent} from '@app/core/notifications/components/alert-area/alert-area.component';
 import {AlertComponent} from '@app/core/notifications/components/alert/alert.component';
-import {NotificationsService} from '@app/core/notifications/domain/notifications.service';
+import {NotificationService} from '@app/core/notifications/domain/notification.service';
 import {Alert, AlertType} from '@app/core/notifications/domain/notifications.model';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('AlertAreaComponent', () => {
-    let service: NotificationsService;
+    let service: NotificationService;
     let componentFixture: ComponentFixture<AlertAreaComponent>;
     let component: AlertAreaComponent;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
             declarations: [AlertAreaComponent, AlertComponent],
-            providers: [NotificationsService]
+            providers: [NotificationService]
         });
     }));
     beforeEach(() => {
-        service = TestBed.get(NotificationsService);
+        service = TestBed.get(NotificationService);
         componentFixture = TestBed.createComponent(AlertAreaComponent);
         component = componentFixture.componentInstance;
         componentFixture.detectChanges();

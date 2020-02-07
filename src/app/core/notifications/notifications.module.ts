@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NotificationsService} from './domain/notifications.service';
+import {NotificationService} from './domain/notification.service';
 import {AlertAreaComponent} from './components/alert-area/alert-area.component';
 import {AlertComponent} from './components/alert/alert.component';
 
@@ -10,7 +10,7 @@ import {AlertComponent} from './components/alert/alert.component';
     ],
     declarations: [AlertComponent, AlertAreaComponent],
     exports: [AlertAreaComponent],
-    providers: [NotificationsService]
+    providers: [NotificationService]
 })
 export class NotificationsModule {
 }

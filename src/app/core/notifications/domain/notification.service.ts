@@ -3,7 +3,7 @@ import {Alert, AlertType} from './notifications.model';
 import {BehaviorSubject} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class NotificationsService {
+export class NotificationService {
     $alerts: BehaviorSubject<Alert[]> = new BehaviorSubject<Alert[]>([]);
     alerts: Alert[] = [];
 

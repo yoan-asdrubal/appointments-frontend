@@ -1,7 +1,7 @@
 
 
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NotificationsService} from '../../domain/notifications.service';
+import {NotificationService} from '../../domain/notification.service';
 import {Alert} from '../../domain/notifications.model';
 import {Observable} from 'rxjs';
 
@@ -14,7 +14,7 @@ export class AlertAreaComponent implements OnInit, OnDestroy {
 
 	alerts: Observable<Alert[]> = this._service.getAlertAsObservable();
 
-	constructor(private _service: NotificationsService) {
+	constructor(private _service: NotificationService) {
 	}
 
 	ngOnInit() {

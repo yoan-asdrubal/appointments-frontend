@@ -5,7 +5,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/c
 // @ts-ignore
 import {DATASOURCE_ROOT_CONFIG, DatasourceConfig} from '@app/core/datasource/datasource.config';
 import {catchError, tap} from 'rxjs/operators';
-import {NotificationsService} from '@app/core/notifications/domain/notifications.service';
+import {NotificationService} from '@app/core/notifications/domain/notification.service';
 import {Alert} from '@app/core/notifications/domain/notifications.model';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class DatasourceService {
     constructor(
         private _http: HttpClient,
         @Inject(DATASOURCE_ROOT_CONFIG) private _dsConfig: DatasourceConfig,
-        @Optional() private notificationS: NotificationsService
+        @Optional() private notificationS: NotificationService
     ) {
         this._setBaseHrefToUrls();
     }
