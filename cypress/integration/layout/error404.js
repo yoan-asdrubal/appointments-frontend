@@ -5,7 +5,7 @@ describe('Error 404', () => {
         cy.get('#app-content app-error404').should('have.length', 1);
     });
     it('should redirect to pathNotFound when access to not found url ', function () {
-        cy.visit('path-Not-Found');
+        cy.visit('somePathNotFound');
         cy.url().should('include', 'pathNotFound');
         cy.get('#app-content app-error404').should('have.length', 1);
     });
