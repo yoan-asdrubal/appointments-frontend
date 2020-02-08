@@ -25,8 +25,8 @@ export const DATASOURCE_CONFIG: DatasourceConfig = {
             api: {
                 LIST: {method: 'GET', url: '/appointment', name: 'List Appointment'},
                 GET: {method: 'GET', url: '/appointment/{id}', name: 'Get Appointment info'},
-                POST: {method: 'POST', url: 'appointment', name: 'Save Appointment'},
-                PUT: {method: 'POST', url: 'appointment', name: 'Update Appointment'},
+                POST: {method: 'POST', url: '/appointment', name: 'Save Appointment'},
+                PUT: {method: 'POST', url: '/appointment', name: 'Update Appointment'},
                 DELETE: {method: 'DELETE', url: '/appointment/{id}', name: 'Delete Appointment'},
             },
         },
