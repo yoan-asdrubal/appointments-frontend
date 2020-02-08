@@ -11,8 +11,19 @@ import {Datasource} from '@app/core/datasource/domain/datasource.model';
 import {appointmentMockData} from '@app/core/model/appointment/appointment.model';
 
 describe('AppointmentService', () => {
+    /**
+     * Get AppointmentModel datasource configuration
+     */
     const model = DATASOURCE_NAMES.MODEL_APPOINTMENT;
     const datasource: Datasource = DATASOURCE_CONFIG.datasources[model];
+
+    /**
+     * Use same configuration from datasource.config.url,
+     * declare local datasource config test to use only appointment datasource configuration
+     */
+    const DATASOURCE_CONFIG_TEST = {datasources: {}};
+    DATASOURCE_CONFIG_TEST.datasources[model] = datasource;
+
     const data = appointmentMockData;
 
     let httpClientController: HttpTestingController;
@@ -24,7 +35,7 @@ describe('AppointmentService', () => {
             AppointmentQuery,
             AppointmentService,
             {
-                provide: DATASOURCE_ROOT_CONFIG, useValue: DATASOURCE_CONFIG
+                provide: DATASOURCE_ROOT_CONFIG, useValue: DATASOURCE_CONFIG_TEST
             },
             DatasourceService]
     }));
