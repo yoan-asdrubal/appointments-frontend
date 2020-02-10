@@ -11,5 +11,10 @@ module.exports = {
     coverageDirectory: 'coverage/my-app',
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
         prefix: '<rootDir>/'
-    })
+    }),
+    globals: {
+        'ts-jest': {
+            diagnostics: false
+        }
+    }
 };
