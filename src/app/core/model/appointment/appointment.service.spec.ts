@@ -1,4 +1,4 @@
-import {TestBed} from '@angular/core/testing';
+import {async, TestBed} from '@angular/core/testing';
 
 import {AppointmentService} from './appointment.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
@@ -9,6 +9,7 @@ import {DATASOURCE_CONFIG, DATASOURCE_NAMES} from '@app/core/datasource/datasour
 import {DATASOURCE_ROOT_CONFIG} from '@app/core/datasource/datasource.config';
 import {Datasource} from '@app/core/datasource/domain/datasource.model';
 import {appointmentMockData} from '@app/core/model/appointment/appointment.model';
+import {skip} from 'rxjs/operators';
 
 describe('AppointmentService', () => {
     /**
@@ -24,11 +25,11 @@ describe('AppointmentService', () => {
     const DATASOURCE_CONFIG_TEST = {datasources: {}};
     DATASOURCE_CONFIG_TEST.datasources[model] = datasource;
 
-    const data = appointmentMockData;
+    const keys = ['id', 'date', 'timeInit', 'timeEnd', 'subject', 'description', 'area'];
 
     let httpClientController: HttpTestingController;
     let service: AppointmentService;
-    beforeEach(() => TestBed.configureTestingModule({
+    beforeEach(async(() => TestBed.configureTestingModule({
         imports: [HttpClientTestingModule]
         , providers: [
             AppointmentStore,
@@ -38,7 +39,7 @@ describe('AppointmentService', () => {
                 provide: DATASOURCE_ROOT_CONFIG, useValue: DATASOURCE_CONFIG_TEST
             },
             DatasourceService]
-    }));
+    })));
 
     beforeEach(() => {
         service = TestBed.get(AppointmentService);
@@ -49,16 +50,25 @@ describe('AppointmentService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should return list of appointment when list', function() {
-
-        service.list()
+    it('should return list of appointment when list', async(function() {
+        const data = appointmentMockData;
+        service.list().pipe(skip(1))
             .subscribe((response: any[]) => {
-                expect(response.length).toEqual(3);
-                expect(response).toEqual(data);
+
+                expect(response.length).toEqual(data.length);
+                data.forEach((val, ind) => {
+                    keys.forEach(prop => {
+                        expect(val[prop]).toBeDefined();
+                        expect(response[ind][prop]).toBeDefined();
+                        expect(val[prop]).toEqual(response[ind][prop]);
+                    });
+                });
             });
+
 
         const req = httpClientController.expectOne(`${datasource.url}${datasource.api['LIST'].url}`);
         expect(req.request.method).toEqual('GET');
+
         req.flush(data);
-    });
+    }));
 });
