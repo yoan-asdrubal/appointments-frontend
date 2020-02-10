@@ -12,6 +12,7 @@ import {NotificationsModule} from '@app/core/notifications/notifications.module'
 import {AppLayoutModule} from '@app/layout/app-layout.module';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
+import {SharedModule} from '@app/shared/shared.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
         CalendarModule.forRoot({
             provide: DateAdapter,
             useFactory: adapterFactory
-        })
+        }),
+        SharedModule
     ],
     bootstrap: [AppComponent]
 })
