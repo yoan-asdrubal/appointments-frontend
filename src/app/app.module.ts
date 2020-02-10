@@ -10,6 +10,8 @@ import {DatasourceModule} from './core/datasource/datasource.module';
 import {DATASOURCE_CONFIG} from './core/datasource/datasource.url.config';
 import {NotificationsModule} from '@app/core/notifications/notifications.module';
 import {AppLayoutModule} from '@app/layout/app-layout.module';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 
 
 @NgModule({
@@ -24,6 +26,10 @@ import {AppLayoutModule} from '@app/layout/app-layout.module';
         NotificationsModule,
         AppLayoutModule,
         environment.production ? [] : AkitaNgDevtools.forRoot(),
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory
+        })
     ],
     bootstrap: [AppComponent]
 })
