@@ -4,6 +4,9 @@ import {AppointmentContainerComponent} from './appointment-container.component';
 import {appointmentMockData} from '@app/core/model/appointment/appointment.model';
 import {AppointmentService} from '@app/core/model/appointment/appointment.service';
 import {of} from 'rxjs';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('AppointmentContainerComponent', () => {
     let component: AppointmentContainerComponent;
@@ -18,6 +21,10 @@ describe('AppointmentContainerComponent', () => {
         };
 
         TestBed.configureTestingModule({
+            imports: [NoopAnimationsModule, CalendarModule.forRoot({
+                provide: DateAdapter,
+                useFactory: adapterFactory
+            })],
             declarations: [AppointmentContainerComponent]
             , providers: [
                 {provide: AppointmentService, useValue: service}
