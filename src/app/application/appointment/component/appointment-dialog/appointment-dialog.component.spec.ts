@@ -94,4 +94,36 @@ describe('AppointmentDialogComponent', () => {
         // });
     }));
 
+    it('should init formGroup with default values to edit appointment', async(function() {
+        const data: any = {
+            id: 'id1',
+            date: '2020-02-10',
+            timeInit: '10:00 AM',
+            timeEnd: '12:00 PM',
+            subject: 'Todo Time',
+            description: 'Time to make some todos',
+            area: 'TodoArea'
+        };
+        TestBed.overrideProvider(MAT_DIALOG_DATA, {useValue: data});
+        TestBed.compileComponents();
+        initValues();
+        dialog.open(AppointmentDialogComponent);
+        fixture.detectChanges();
+
+        const appointmentDialog = overlayContainerElement.querySelector('app-appointment-dialog');
+        expect(appointmentDialog).toBeTruthy();
+        expect(component.data).toEqual(data);
+        const formValue = component.form.value;
+
+        expect(formValue.date).toEqual(data.date);
+        expect(formValue.id).toEqual(data.id);
+        expect(formValue.timeInit).toEqual(data.timeInit);
+        expect(formValue.timeEnd).toEqual(data.timeEnd);
+        expect(formValue.subject).toEqual(data.subject);
+        expect(formValue.description).toEqual(data.description);
+        expect(formValue.area).toEqual(data.area);
+
+
+    }));
+
 });

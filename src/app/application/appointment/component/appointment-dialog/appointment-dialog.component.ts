@@ -24,7 +24,7 @@ export class AppointmentDialogComponent implements OnInit {
 
             appointments.id = this.data.id || '';
             appointments.date = this.data.date || '';
-            appointments.timeInit = this.data.timeStart || '';
+            appointments.timeInit = this.data.timeInit || '';
             appointments.timeEnd = this.data.timeEnd || '';
             appointments.subject = this.data.subject || '';
             appointments.description = this.data.description || '';
