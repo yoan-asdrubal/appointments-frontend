@@ -35,4 +35,19 @@ describe('Appointment Container', () => {
         cy.get('mwl-calendar-week-view-header div div').should('have.length', 5);
         cy.get('mwl-calendar-week-view-header div div').its(0).should('contain.text', 'Monday');
     });
+
+    it('should show hours between 8:00 AM and 5:00 PM', function () {
+        cy.visit('/appointment');
+        cy.get(`[data-cy="btn-week-view"]`).click();
+        cy.get('.cal-time-label-column .cal-hour-segment.cal-hour-start').its(0).should('contain.text', '8 AM');
+        cy.get('.cal-time-label-column .cal-hour-segment.cal-hour-start').its('length').then((size) => {
+            cy.get('.cal-time-label-column .cal-hour-segment.cal-hour-start').its(size - 1).should('contain.text', '5 PM');
+        });
+
+        cy.get(`[data-cy="btn-day-view"]`).click();
+        cy.get('.cal-day-columns .cal-hour-segment.cal-hour-start').its(0).should('contain.text', '8 AM');
+        cy.get('.cal-day-columns .cal-hour-segment.cal-hour-start').its('length').then((size) => {
+            cy.get('.cal-day-columns .cal-hour-segment.cal-hour-start').its(size - 1).should('contain.text', '5 PM');
+        });
+    });
 })

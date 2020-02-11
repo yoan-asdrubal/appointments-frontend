@@ -38,6 +38,10 @@ export class AppointmentContainerComponent implements OnInit {
 
     excludeDays: number[] = [0, 6];
 
+    dayStartHour = 8;
+
+    dayEndHour = 17;
+
     constructor(private appointmentS: AppointmentService) {
     }
 

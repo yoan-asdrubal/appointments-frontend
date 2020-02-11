@@ -1,4 +1,5 @@
 <div class="page-container">
+	{{dayStartHour}} / {{dayEndHour}}
 	<div class="page-header">
 		<div class="col-md-4">
 			<div>
@@ -73,13 +74,29 @@
 				*ngSwitchCase="calendarView.Week"
 				[viewDate]="viewDate"
 				[excludeDays]="excludeDays"
+				[currentTimeMarkerTemplate]="currentTimeMarkerTemplate"
+				[dayStartHour]="dayStartHour"
+				[dayEndHour]="dayEndHour"
 		>
 		</mwl-calendar-week-view>
 		<mwl-calendar-day-view
 				*ngSwitchCase="calendarView.Day"
 				[viewDate]="viewDate"
+				[currentTimeMarkerTemplate]="currentTimeMarkerTemplate"
+				[dayStartHour]="dayStartHour"
+				[dayEndHour]="dayEndHour"
 		>
 		</mwl-calendar-day-view>
 	</div>
 </div>
+<ng-template
+    #currentTimeMarkerTemplate
+	let-columnDate="columnDate"
+	let-dayStartHour="dayStartHour"
+	let-dayStartMinute="dayStartMinute"
+	let-dayEndHour="dayEndHour"
+	let-dayEndMinute="dayEndMinute"
+	let-isVisible="isVisible"
+	let-topPx="topPx"
+></ng-template>
 
