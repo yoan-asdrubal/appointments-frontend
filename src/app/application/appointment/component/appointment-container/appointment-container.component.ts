@@ -23,7 +23,7 @@ const colors: any = {
 @Component({
     selector: 'app-appointment-container',
     templateUrl: './appointment-container.component.html',
-    styleUrls: ['./appointment-container.component.css']
+    styleUrls: ['./appointment-container.component.scss']
 })
 export class AppointmentContainerComponent implements OnInit {
     appointments$: Observable<AppointmentModel[]>;
