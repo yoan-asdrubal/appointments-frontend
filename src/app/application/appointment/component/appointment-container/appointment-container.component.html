@@ -3,8 +3,11 @@
 	<div class="page-header">
 		<div class="col-md-4">
 			<div>
-				<button mat-raised-button color="primary"
+				<button mat-raised-button
+				        [color]="action === 'prev' ? 'primary': null"
 				        mwlCalendarPreviousView
+				        data-cy="action-prev"
+				        (click)="action='prev'"
 				        [view]="view"
 				        [(viewDate)]="viewDate"
 				        (viewDateChange)="closeOpenMonthViewDay()"
@@ -13,14 +16,20 @@
 					Previous
 				</button>
 				<button mat-raised-button
+				        [color]="action === 'today' ? 'primary': null"
 				        mwlCalendarToday
+				        data-cy="action-today"
+				        (click)="action='today'"
 				        [(viewDate)]="viewDate"
 				>
 					Today
 				</button>
 				<button
-						mat-raised-button color="primary"
+						mat-raised-button
+						[color]="action === 'next' ? 'primary': null"
 						mwlCalendarNextView
+						data-cy="action-next"
+						(click)="action='next'"
 						[view]="view"
 						[(viewDate)]="viewDate"
 						(viewDateChange)="closeOpenMonthViewDay()"
@@ -36,7 +45,7 @@
 		<div>
 			<div>
 				<button
-						mat-raised-button color="primary"
+						mat-raised-button [color]="view === calendarView.Month ? 'primary': null"
 						data-cy="btn-month-view"
 						(click)="setView(calendarView.Month)"
 						[class.active]="view === calendarView.Month"
@@ -44,7 +53,7 @@
 					Month
 				</button>
 				<button
-						mat-raised-button color="primary"
+						mat-raised-button [color]="view === calendarView.Week ? 'primary': null"
 						data-cy="btn-week-view"
 						(click)="setView(calendarView.Week)"
 						[class.active]="view === calendarView.Week"
@@ -52,7 +61,7 @@
 					Week
 				</button>
 				<button
-						mat-raised-button color="primary"
+						mat-raised-button [color]="view === calendarView.Day ? 'primary': null"
 						data-cy="btn-day-view"
 						(click)="setView(calendarView.Day)"
 						[class.active]="view === calendarView.Day"

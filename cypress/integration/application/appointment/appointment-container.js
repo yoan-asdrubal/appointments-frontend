@@ -25,6 +25,41 @@ describe('Appointment Container', () => {
 
     });
 
+    it('should show selected view mode with color primary and others with color default', function () {
+        cy.visit('/appointment');
+        cy.get(`[data-cy="btn-month-view"]`).should("have.class", 'mat-primary');
+        cy.get(`[data-cy="btn-week-view"]`).should("not.have.class", 'mat-primary');
+        cy.get(`[data-cy="btn-day-view"]`).should("not.have.class", 'mat-primary');
+
+        cy.get(`[data-cy="btn-week-view"]`).click();
+        cy.get(`[data-cy="btn-week-view"]`).should("have.class", 'mat-primary');
+        cy.get(`[data-cy="btn-month-view"]`).should("not.have.class", 'mat-primary');
+        cy.get(`[data-cy="btn-day-view"]`).should("not.have.class", 'mat-primary');
+
+        cy.get(`[data-cy="btn-day-view"]`).click();
+        cy.get(`[data-cy="btn-day-view"]`).should("have.class", 'mat-primary');
+        cy.get(`[data-cy="btn-month-view"]`).should("not.have.class", 'mat-primary');
+        cy.get(`[data-cy="btn-week-view"]`).should("not.have.class", 'mat-primary');
+    });
+
+    it('should show navigation date pressed with color primary and others with color default', function () {
+        cy.visit('/appointment');
+        cy.get(`[data-cy="action-today"]`).should("have.class", 'mat-primary');
+        cy.get(`[data-cy="action-prev"]`).should("not.have.class", 'mat-primary');
+        cy.get(`[data-cy="action-next"]`).should("not.have.class", 'mat-primary');
+
+        cy.get(`[data-cy="action-prev"]`).click();
+        cy.get(`[data-cy="action-prev"]`).should("have.class", 'mat-primary');
+        cy.get(`[data-cy="action-today"]`).should("not.have.class", 'mat-primary');
+        cy.get(`[data-cy="action-next"]`).should("not.have.class", 'mat-primary');
+
+
+        cy.get(`[data-cy="action-next"]`).click();
+        cy.get(`[data-cy="action-next"]`).should("have.class", 'mat-primary');
+        cy.get(`[data-cy="action-prev"]`).should("not.have.class", 'mat-primary');
+        cy.get(`[data-cy="action-today"]`).should("not.have.class", 'mat-primary');
+    });
+
     it('should not include weekends when month and week view mode', function () {
         cy.visit('/appointment');
 
@@ -50,4 +85,5 @@ describe('Appointment Container', () => {
             cy.get('.cal-day-columns .cal-hour-segment.cal-hour-start').its(size - 1).should('contain.text', '5 PM');
         });
     });
+
 })

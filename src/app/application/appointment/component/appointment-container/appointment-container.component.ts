@@ -30,6 +30,8 @@ export class AppointmentContainerComponent implements OnInit {
 
     view: CalendarView = CalendarView.Month;
 
+    action = 'today';
+
     calendarView = CalendarView;
 
     viewDate: Date = new Date();
