@@ -7,6 +7,7 @@ import {of} from 'rxjs';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
 
 describe('AppointmentContainerComponent', () => {
     let component: AppointmentContainerComponent;
@@ -24,7 +25,7 @@ describe('AppointmentContainerComponent', () => {
             imports: [NoopAnimationsModule, CalendarModule.forRoot({
                 provide: DateAdapter,
                 useFactory: adapterFactory
-            })],
+            }), MatButtonModule],
             declarations: [AppointmentContainerComponent]
             , providers: [
                 {provide: AppointmentService, useValue: service}
