@@ -7,6 +7,7 @@
 				        [view]="view"
 				        [(viewDate)]="viewDate"
 				        (viewDateChange)="closeOpenMonthViewDay()"
+				        [excludeDays]="excludeDays"
 				>
 					Previous
 				</button>
@@ -22,6 +23,7 @@
 						[view]="view"
 						[(viewDate)]="viewDate"
 						(viewDateChange)="closeOpenMonthViewDay()"
+						[excludeDays]="excludeDays"
 				>
 					Next
 				</button>
@@ -64,11 +66,13 @@
 				*ngSwitchCase="calendarView.Month"
 				[viewDate]="viewDate"
 				[activeDayIsOpen]="activeDayIsOpen"
+				[excludeDays]="excludeDays"
 		>
 		</mwl-calendar-month-view>
 		<mwl-calendar-week-view
 				*ngSwitchCase="calendarView.Week"
 				[viewDate]="viewDate"
+				[excludeDays]="excludeDays"
 		>
 		</mwl-calendar-week-view>
 		<mwl-calendar-day-view

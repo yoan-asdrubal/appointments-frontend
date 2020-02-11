@@ -24,4 +24,15 @@ describe('Appointment Container', () => {
         select('month');
 
     });
+
+    it('should not include weekends when month and week view mode', function () {
+        cy.visit('/appointment');
+
+        cy.get('mwl-calendar-month-view-header .cal-weekend').should('have.length', 0);
+
+        cy.get(`[data-cy="btn-week-view"]`).click();
+
+        cy.get('mwl-calendar-week-view-header div div').should('have.length', 5);
+        cy.get('mwl-calendar-week-view-header div div').its(0).should('contain.text', 'Monday');
+    });
 })

@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AppointmentService} from '@app/core/model/appointment/appointment.service';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {AppointmentModel} from '@app/core/model/appointment/appointment.model';
-import {CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
-import {addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
+import {CalendarView} from 'angular-calendar';
 
 const colors: any = {
     red: {
@@ -36,6 +35,8 @@ export class AppointmentContainerComponent implements OnInit {
     viewDate: Date = new Date();
 
     activeDayIsOpen = true;
+
+    excludeDays: number[] = [0, 6];
 
     constructor(private appointmentS: AppointmentService) {
     }
