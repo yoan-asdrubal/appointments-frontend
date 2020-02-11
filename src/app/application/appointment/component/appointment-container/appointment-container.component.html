@@ -1,8 +1,8 @@
-<div>
-	<div class="calendar-header">
+<div class="page-container">
+	<div class="page-header">
 		<div class="col-md-4">
 			<div>
-				<button mat-button color="primary"
+				<button mat-raised-button color="primary"
 				        mwlCalendarPreviousView
 				        [view]="view"
 				        [(viewDate)]="viewDate"
@@ -10,14 +10,14 @@
 				>
 					Previous
 				</button>
-				<button mat-button
+				<button mat-raised-button
 				        mwlCalendarToday
 				        [(viewDate)]="viewDate"
 				>
 					Today
 				</button>
 				<button
-						mat-button color="primary"
+						mat-raised-button color="primary"
 						mwlCalendarNextView
 						[view]="view"
 						[(viewDate)]="viewDate"
@@ -33,7 +33,7 @@
 		<div>
 			<div>
 				<button
-						mat-button color="primary"
+						mat-raised-button color="primary"
 						data-cy="btn-month-view"
 						(click)="setView(calendarView.Month)"
 						[class.active]="view === calendarView.Month"
@@ -41,7 +41,7 @@
 					Month
 				</button>
 				<button
-						mat-button color="primary"
+						mat-raised-button color="primary"
 						data-cy="btn-week-view"
 						(click)="setView(calendarView.Week)"
 						[class.active]="view === calendarView.Week"
@@ -49,7 +49,7 @@
 					Week
 				</button>
 				<button
-						mat-button color="primary"
+						mat-raised-button color="primary"
 						data-cy="btn-day-view"
 						(click)="setView(calendarView.Day)"
 						[class.active]="view === calendarView.Day"
@@ -59,7 +59,6 @@
 			</div>
 		</div>
 	</div>
-	<br/>
 	<div [ngSwitch]="view" data-cy="calendar-content">
 		<mwl-calendar-month-view
 				*ngSwitchCase="calendarView.Month"
