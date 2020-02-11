@@ -4,6 +4,7 @@ import {RxReactiveFormsModule} from '@rxweb/reactive-form-validators';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
     declarations: [],
@@ -15,11 +16,13 @@ import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
             provide: DateAdapter,
             useFactory: adapterFactory
         }),
+        MatButtonModule
     ],
     exports: [
         ReactiveFormsModule,
         RxReactiveFormsModule,
-        CalendarModule
+        CalendarModule,
+        MatButtonModule
     ]
 })
 export class SharedModule {
