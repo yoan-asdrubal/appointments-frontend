@@ -70,7 +70,7 @@ export class AppointmentContainerComponent implements OnInit {
     openAppointmentDialog(date) {
         console.log('openAppointmentDialog', date);
         const dialogRef = this.dialog.open(AppointmentDialogComponent, {
-            width: '250px',
+            width: '300px',
             data: {date: date}
         });
 
