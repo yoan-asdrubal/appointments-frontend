@@ -11,6 +11,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {DirectivesModule} from '@app/shared/directives/directives.module';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
     declarations: [],
@@ -22,6 +23,7 @@ import {DirectivesModule} from '@app/shared/directives/directives.module';
             provide: DateAdapter,
             useFactory: adapterFactory
         }),
+        NgxMaterialTimepickerModule,
         MatButtonModule,
         MatCardModule,
         MatDatepickerModule,
@@ -34,6 +36,7 @@ import {DirectivesModule} from '@app/shared/directives/directives.module';
         ReactiveFormsModule,
         RxReactiveFormsModule,
         CalendarModule,
+        NgxMaterialTimepickerModule,
         MatButtonModule,
         MatCardModule,
         MatDatepickerModule,

@@ -3,5 +3,16 @@
 @import "~@angular/cdk/overlay-prebuilt.css";
 @import "~angular-calendar/css/angular-calendar.css";
 @import "app/layout/styles/page";
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.timepicker-backdrop-overlay, .timepicker-overlay {
+  z-index: 1001 !important;
+}
