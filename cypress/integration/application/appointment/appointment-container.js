@@ -86,4 +86,30 @@ describe('Appointment Container', () => {
         });
     });
 
+    it('should show dialog to add appointment from context menu', function () {
+        cy.visit('/appointment');
+
+        const checkMenuContext = () => {
+            cy.get('.sh-context-menu').should('have.length', 1);
+            cy.get('.sh-context-menu--item').its(0).should('contain.text', 'Add appointment');
+            cy.get('.sh-context-menu--item div').its(0).click();
+
+            cy.get('app-appointment-dialog').should('have.length', 1);
+            cy.get('app-appointment-dialog input').its(0).type('{esc}');
+        };
+        cy.get('mwl-calendar-month-cell').its(0).rightclick();
+        checkMenuContext();
+
+        cy.get(`[data-cy="btn-week-view"]`).click();
+        cy.get('.cal-day-headers .cal-header').its(0).rightclick();
+        checkMenuContext();
+
+        cy.get('mwl-calendar-week-view-hour-segment').its(0).rightclick();
+        checkMenuContext();
+
+        cy.get(`[data-cy="btn-day-view"]`).click();
+        cy.get('mwl-calendar-week-view-hour-segment').its(0).rightclick();
+        checkMenuContext();
+
+    });
 })

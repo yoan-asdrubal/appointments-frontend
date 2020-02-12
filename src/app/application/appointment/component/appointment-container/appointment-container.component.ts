@@ -3,6 +3,8 @@ import {AppointmentService} from '@app/core/model/appointment/appointment.servic
 import {Observable} from 'rxjs';
 import {AppointmentModel} from '@app/core/model/appointment/appointment.model';
 import {CalendarView} from 'angular-calendar';
+import {MatDialog} from '@angular/material/dialog';
+import {AppointmentDialogComponent} from '@app/application/appointment/component/appointment-dialog/appointment-dialog.component';
 
 const colors: any = {
     red: {
@@ -44,7 +46,7 @@ export class AppointmentContainerComponent implements OnInit {
 
     dayEndHour = 17;
 
-    constructor(private appointmentS: AppointmentService) {
+    constructor(private appointmentS: AppointmentService, public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -63,5 +65,17 @@ export class AppointmentContainerComponent implements OnInit {
 
     closeOpenMonthViewDay() {
         this.activeDayIsOpen = false;
+    }
+
+    openAppointmentDialog(date) {
+        console.log('openAppointmentDialog', date);
+        const dialogRef = this.dialog.open(AppointmentDialogComponent, {
+            width: '250px',
+            data: {date: date}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed', result);
+        });
     }
 }

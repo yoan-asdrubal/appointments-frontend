@@ -10,21 +10,6 @@
 				       type="text">
 			</mat-form-field>
 
-			<mat-form-field [floatLabel]="'auto'">
-				<!--                [class.show-outline]="outlineAlways===false  && !inputControl.value"-->
-				<!--                [class.hide-outline]="outlineAlways===false  && !!inputControl.value"-->
-				<mat-label>Date</mat-label>
-				<input matInput ngDefaultControl
-				       [matDatepicker]="picker3"
-				       formControlName="date"
-				       [min]="minDate"
-				>
-
-				<mat-datepicker #picker3>
-				</mat-datepicker>
-				<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-			</mat-form-field>
-
 			<mat-form-field>
 				<input matInput formControlName="description" type="text">
 			</mat-form-field>
