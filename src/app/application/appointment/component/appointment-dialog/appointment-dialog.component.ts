@@ -13,8 +13,6 @@ export class AppointmentDialogComponent implements OnInit {
 
     form: FormGroup;
 
-    minDate = new Date();
-
     constructor(private formB: RxFormBuilder,
                 @Optional() @Inject(MAT_DIALOG_DATA) public data: AppointmentFormModel | any) {
     }
@@ -38,12 +36,5 @@ export class AppointmentDialogComponent implements OnInit {
 
     }
 
-    submit() {
-        if (this.form.valid) {
-            console.log('VALID', this.form.value);
-        } else {
-            console.log('INVALID', this.form.value);
-        }
-    }
 
 }
