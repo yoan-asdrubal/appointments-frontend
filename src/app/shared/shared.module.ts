@@ -11,7 +11,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {DirectivesModule} from '@app/shared/directives/directives.module';
-import {ContextMenuModule} from 'ngx-contextmenu';
 
 @NgModule({
     declarations: [],
@@ -23,7 +22,6 @@ import {ContextMenuModule} from 'ngx-contextmenu';
             provide: DateAdapter,
             useFactory: adapterFactory
         }),
-        ContextMenuModule,
         MatButtonModule,
         MatCardModule,
         MatDatepickerModule,
@@ -35,7 +33,6 @@ import {ContextMenuModule} from 'ngx-contextmenu';
     exports: [
         ReactiveFormsModule,
         RxReactiveFormsModule,
-        ContextMenuModule,
         CalendarModule,
         MatButtonModule,
         MatCardModule,
