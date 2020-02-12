@@ -6,6 +6,9 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {NgModule} from '@angular/core';
 import {RxReactiveFormsModule} from '@rxweb/reactive-form-validators';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
     imports: [MatDialogModule, NoopAnimationsModule],
@@ -24,7 +27,7 @@ describe('AppointmentDialogComponent', () => {
     let overlayContainerElement: HTMLElement;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [DialogTestModule, RxReactiveFormsModule],
+            imports: [DialogTestModule, RxReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule],
             declarations: [AppointmentDialogComponent],
             providers: [
                 {

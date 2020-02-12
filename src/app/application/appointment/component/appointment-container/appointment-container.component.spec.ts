@@ -8,12 +8,15 @@ import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
+import {ShContextMenuModule} from 'ng2-right-click-menu';
+import {MatDialogModule} from '@angular/material/dialog';
 
 describe('AppointmentContainerComponent', () => {
     let component: AppointmentContainerComponent;
     let fixture: ComponentFixture<AppointmentContainerComponent>;
     let service: AppointmentService | any;
     const data = appointmentMockData;
+
     beforeEach(async(() => {
         service = {
             list: jest.fn(() => {
@@ -25,7 +28,7 @@ describe('AppointmentContainerComponent', () => {
             imports: [NoopAnimationsModule, CalendarModule.forRoot({
                 provide: DateAdapter,
                 useFactory: adapterFactory
-            }), MatButtonModule],
+            }), MatButtonModule, ShContextMenuModule, MatDialogModule],
             declarations: [AppointmentContainerComponent]
             , providers: [
                 {provide: AppointmentService, useValue: service}
