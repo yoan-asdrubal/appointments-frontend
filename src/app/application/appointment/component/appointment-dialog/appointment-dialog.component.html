@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()" id="appointment-form">
 	<mat-card>
 		<mat-card-title-group>
 			<mat-card-title>{{!!form.get('id').value ? 'Edit Appointment' : 'Add Appointment'}}</mat-card-title>
@@ -8,6 +8,12 @@
 			<mat-form-field>
 				<input matInput formControlName="subject"
 				       type="text">
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput formControlName="date" type="text" readonly>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput formControlName="timeInit" type="text">
 			</mat-form-field>
 
 			<mat-form-field>

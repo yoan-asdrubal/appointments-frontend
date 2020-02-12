@@ -61,7 +61,7 @@ describe('AppointmentDialogComponent', () => {
     });
 
     it('should render with Date to create new Appointment ', async(function() {
-        const data: any = {date: '2020-02-10'};
+        const data: any = {date: new Date(2020, 1, 10, 8, 0)};
         TestBed.overrideProvider(MAT_DIALOG_DATA, {useValue: data});
         TestBed.compileComponents();
         initValues();
@@ -73,9 +73,9 @@ describe('AppointmentDialogComponent', () => {
         expect(component.data).toEqual(data);
         const formValue = component.form.value;
 
-        expect(formValue.date).toEqual(data.date);
+        expect(formValue.date).toEqual('02-10-2020');
         expect(formValue.id).toEqual('');
-        expect(formValue.timeInit).toEqual('');
+        expect(formValue.timeInit).toEqual('08:00');
         expect(formValue.timeEnd).toEqual('');
         expect(formValue.subject).toEqual('');
         expect(formValue.description).toEqual('');

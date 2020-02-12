@@ -3,11 +3,12 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppointmentFormModel} from '@app/core/model/appointment/appointment.model';
 import {FormGroup} from '@angular/forms';
 import {RxFormBuilder} from '@rxweb/reactive-form-validators';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-appointment-dialog',
     templateUrl: './appointment-dialog.component.html',
-    styleUrls: ['./appointment-dialog.component.css']
+    styleUrls: ['./appointment-dialog.component.scss']
 })
 export class AppointmentDialogComponent implements OnInit {
 
@@ -20,20 +21,25 @@ export class AppointmentDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        const appointments = new AppointmentFormModel();
+        const appointment = new AppointmentFormModel();
         if (!!this.data) {
             // console.log('ngOnInit', this.data);
-
-            appointments.id = this.data.id || '';
-            appointments.date = this.data.date || '';
-            appointments.timeInit = this.data.timeInit || '';
-            appointments.timeEnd = this.data.timeEnd || '';
-            appointments.subject = this.data.subject || '';
-            appointments.description = this.data.description || '';
-            appointments.area = this.data.area || '';
-
+            appointment.id = this.data.id || '';
+            appointment.date = this.data.date || '';
+            appointment.timeInit = this.data.timeInit || '';
+            appointment.timeEnd = this.data.timeEnd || '';
+            appointment.subject = this.data.subject || '';
+            appointment.description = this.data.description || '';
+            appointment.area = this.data.area || '';
         }
-        this.form = this.formB.formGroup(appointments);
+        if ((!appointment.id || appointment.id === '') && !!appointment.date) {
+            const pipe = new DatePipe('en');
+            const date = pipe.transform(appointment.date, 'MM-dd-yyyy');
+            const timeInit = pipe.transform(appointment.date, 'hh:mm');
+            appointment.date = date;
+            appointment.timeInit = timeInit;
+        }
+        this.form = this.formB.formGroup(appointment);
         // console.log('this.form.value', this.form.get('date').value);
 
     }
