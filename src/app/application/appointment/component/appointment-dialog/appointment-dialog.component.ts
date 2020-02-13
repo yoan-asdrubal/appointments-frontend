@@ -34,13 +34,25 @@ export class AppointmentDialogComponent implements OnInit {
         }
         if ((!appointment.id || appointment.id === '') && !!appointment.date) {
             const pipe = new DatePipe('en');
-            const date = pipe.transform(appointment.date, 'MM-dd-yyyy');
-            const timeInit = pipe.transform(appointment.date, 'hh:mm');
+            let timeInit = pipe.transform(appointment.date, 'hh:mm');
+            const hour = +timeInit.split(':')[0];
+            let date = appointment.date;
+            if (date.toString().indexOf('00:00:00') > -1) {
+                timeInit = '8:00 AM';
+            } else if (hour < 12) {
+                timeInit += ' AM';
+            } else {
+                timeInit += ' PM';
+            }
+
+             date = pipe.transform(appointment.date, 'MM-dd-yyyy');
+
+
             appointment.date = date;
             appointment.timeInit = timeInit;
+            appointment.timeEnd = '05:00 PM';
         }
         this.form = this.formB.formGroup(appointment);
-        // console.log('this.form.value', this.form.get('date').value);
 
     }
 
