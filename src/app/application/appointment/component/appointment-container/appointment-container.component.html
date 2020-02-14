@@ -127,6 +127,7 @@
 			[ngClass]="segment.cssClass"
 			[shAttachMenu]="appointmentMenu"
 			[shMenuData]="segment.date"
+			[attr.date]="segment.date"
 	>
 		<div class="cal-time">
 			{{ segment.date | calendarDate: 'dayViewHour':locale }}
