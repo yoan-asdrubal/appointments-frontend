@@ -79,6 +79,7 @@
 				(click)="dayHeaderClicked.emit({day: day})"
 				[shAttachMenu]="appointmentMenu"
 				[shMenuData]="day.date"
+				[attr.date]="day.date"
 		>
 			<b>{{ day.date | calendarDate:'weekViewColumnHeader':locale }}</b><br/>
 			<span
@@ -103,6 +104,7 @@
 			[ngClass]="segment.cssClass"
 			[shAttachMenu]="appointmentMenu"
 			[shMenuData]="segment.date"
+			[attr.date]="segment.date"
 	>
 		<div class="cal-time" *ngIf="isTimeLabel">
 			{{ segment.date | calendarDate: 'weekViewHour':locale }}

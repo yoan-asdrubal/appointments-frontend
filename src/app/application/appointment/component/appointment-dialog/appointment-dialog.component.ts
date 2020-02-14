@@ -35,17 +35,19 @@ export class AppointmentDialogComponent implements OnInit {
         if ((!appointment.id || appointment.id === '') && !!appointment.date) {
             const pipe = new DatePipe('en');
             let timeInit = pipe.transform(appointment.date, 'hh:mm');
-            const hour = +timeInit.split(':')[0];
             let date = appointment.date;
+            const hour = new Date(date).getHours();
             if (date.toString().indexOf('00:00:00') > -1) {
                 timeInit = '8:00 AM';
-            } else if (hour < 12) {
-                timeInit += ' AM';
-            } else {
+            } else if (hour > 12) {
+                timeInit = `${hour - 12}:${new Date(date).getMinutes()} PM`;
+            } else if (hour === 12) {
                 timeInit += ' PM';
+            } else {
+                timeInit += ' AM';
             }
 
-             date = pipe.transform(appointment.date, 'MM-dd-yyyy');
+            date = pipe.transform(appointment.date, 'MM-dd-yyyy');
 
 
             appointment.date = date;
