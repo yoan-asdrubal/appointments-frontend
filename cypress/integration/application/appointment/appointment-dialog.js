@@ -5,7 +5,7 @@ describe('Appointment Dialog', () => {
         return digit;
     };
 
-    it('should show Appointment Dialog to create appointment from MONTH view mode from random day', function () {
+    it('should show dialog with values from any day in calendar MONTH view mode', function () {
         cy.visit('/appointment');
         let pos = 0;
 
@@ -22,8 +22,7 @@ describe('Appointment Dialog', () => {
                 cy.get('mwl-calendar-month-cell > div').its(pos).invoke('attr', 'date')
                     .then((val) => {
                         const date = new Date(val);
-                        const dateStr = `${addZeroToDigit(date.getMonth() + 1)}-${addZeroToDigit(date.getDate())}-${date.getFullYear()}`
-                        console.log('dateStr', val, dateStr);
+                        const dateStr = `${addZeroToDigit(date.getMonth() + 1)}-${addZeroToDigit(date.getDate())}-${date.getFullYear()}`;
 
                         const hour = addZeroToDigit(date.getHours() > 12 ? date.getHours() - 12 : date.getHours());
                         const minutes = addZeroToDigit(date.getMinutes());
@@ -36,7 +35,7 @@ describe('Appointment Dialog', () => {
                     });
             });
     });
-    it('should show Appointment Dialog to create appointment from  WEEK view mode from random day', function () {
+    it('should show dialog with values when create from any time of day calendar WEEK view mode', function () {
         cy.visit('/appointment');
         cy.get(`[data-cy="btn-week-view"]`).click();
         let pos = 0;
@@ -54,8 +53,7 @@ describe('Appointment Dialog', () => {
                 cy.get('@query').its(pos).invoke('attr', 'date')
                     .then((val) => {
                         const date = new Date(val);
-                        const dateStr = `${addZeroToDigit(date.getMonth() + 1)}-${addZeroToDigit(date.getDate())}-${date.getFullYear()}`
-                        console.log('dateStr', val, dateStr);
+                        const dateStr = `${addZeroToDigit(date.getMonth() + 1)}-${addZeroToDigit(date.getDate())}-${date.getFullYear()}`;
 
                         const hour = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
                         const minutes = addZeroToDigit(date.getMinutes());
@@ -68,4 +66,6 @@ describe('Appointment Dialog', () => {
                     });
             });
     });
+
+    
 })
