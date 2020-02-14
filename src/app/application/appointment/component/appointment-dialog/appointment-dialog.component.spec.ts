@@ -9,6 +9,7 @@ import {RxReactiveFormsModule} from '@rxweb/reactive-form-validators';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
     imports: [MatDialogModule, NoopAnimationsModule],
@@ -27,7 +28,9 @@ describe('AppointmentDialogComponent', () => {
     let overlayContainerElement: HTMLElement;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [DialogTestModule, RxReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule],
+            imports: [DialogTestModule,
+                RxReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule,
+                NgxMaterialTimepickerModule],
             declarations: [AppointmentDialogComponent],
             providers: [
                 {
@@ -75,26 +78,12 @@ describe('AppointmentDialogComponent', () => {
 
         expect(formValue.date).toEqual('02-10-2020');
         expect(formValue.id).toEqual('');
-        expect(formValue.timeInit).toEqual('08:00');
-        expect(formValue.timeEnd).toEqual('');
+        expect(formValue.timeInit).toEqual('08:00 AM');
+        expect(formValue.timeEnd).toEqual('05:00 PM');
         expect(formValue.subject).toEqual('');
         expect(formValue.description).toEqual('');
         expect(formValue.area).toEqual('');
 
-        // const selectFormControlValue = (selector) => {
-        //     const element = fixture.debugElement.query(By.css(`#${selector}`));
-        //     expect(element).toBeTruthy();
-        //     return element.nativeElement.value;
-        // };
-        // fixture.detectChanges();
-        //
-        // fixture.whenStable().then(() => {
-        //     console.log('selectFormControlValue()', selectFormControlValue('date'));
-        //     console.log('textContent', overlayContainerElement.querySelector('app-appointment-dialog').textContent);
-        //
-        //     expect(selectFormControlValue('date')).toEqual(data.date);
-        //
-        // });
     }));
 
     it('should init formGroup with default values to edit appointment', async(function() {
