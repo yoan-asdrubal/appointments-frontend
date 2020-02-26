@@ -12,39 +12,45 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {DirectivesModule} from '@app/shared/directives/directives.module';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
-    declarations: [],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        RxReactiveFormsModule,
-        CalendarModule.forRoot({
-            provide: DateAdapter,
-            useFactory: adapterFactory
-        }),
-        NgxMaterialTimepickerModule,
-        MatButtonModule,
-        MatCardModule,
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatDialogModule,
-        MatInputModule,
-        DirectivesModule
-    ],
-    exports: [
-        ReactiveFormsModule,
-        RxReactiveFormsModule,
-        CalendarModule,
-        NgxMaterialTimepickerModule,
-        MatButtonModule,
-        MatCardModule,
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatDialogModule,
-        MatInputModule,
-        DirectivesModule
-    ]
+  declarations: [],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RxReactiveFormsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
+    NgxMaterialTimepickerModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    MatIconModule,
+    MatMenuModule,
+    DirectivesModule
+  ],
+  exports: [
+    ReactiveFormsModule,
+    RxReactiveFormsModule,
+    CalendarModule,
+    NgxMaterialTimepickerModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    MatIconModule,
+    MatMenuModule,
+    DirectivesModule
+  ]
 })
 export class SharedModule {
 }

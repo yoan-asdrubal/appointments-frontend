@@ -1,242 +1,263 @@
 <!-- hide current time markerin calendar-->
 <ng-template
-    #currentTimeMarkerTemplate
-	let-columnDate="columnDate"
-	let-dayStartHour="dayStartHour"
-	let-dayStartMinute="dayStartMinute"
-	let-dayEndHour="dayEndHour"
-	let-dayEndMinute="dayEndMinute"
-	let-isVisible="isVisible"
-	let-topPx="topPx"
+  #currentTimeMarkerTemplate
+  let-columnDate="columnDate"
+  let-dayStartHour="dayStartHour"
+  let-dayStartMinute="dayStartMinute"
+  let-dayEndHour="dayEndHour"
+  let-dayEndMinute="dayEndMinute"
+  let-isVisible="isVisible"
+  let-topPx="topPx"
 ></ng-template>
 
 <!--menu to show option to add appointment-->
 <sh-context-menu #appointmentMenu>
-	<ng-template shContextMenuItem let-data>
-		<div (click)="openAppointmentDialog(data)">
-			Add appointment
-		</div>
-	</ng-template>
+  <ng-template shContextMenuItem let-data>
+    <div (click)="openAppointmentDialog(data)">
+      Add appointment
+    </div>
+  </ng-template>
 </sh-context-menu>
 
 <!--month cell template-->
 <ng-template
-    #monthCellTemplate
-	let-day="day"
-	let-openDay="openDay"
-	let-locale="locale"
-	let-tooltipPlacement="tooltipPlacement"
-	let-highlightDay="highlightDay"
-	let-unhighlightDay="unhighlightDay"
-	let-eventClicked="eventClicked"
+  #monthCellTemplate
+  let-day="day"
+  let-openDay="openDay"
+  let-locale="locale"
+  let-tooltipPlacement="tooltipPlacement"
+  let-highlightDay="highlightDay"
+  let-unhighlightDay="unhighlightDay"
+  let-eventClicked="eventClicked"
 >
-	<div
-			class="fill-height"
-			[shAttachMenu]="appointmentMenu"
-			[shMenuData]="day.date"
-			[attr.date]="day.date"
-	>
-		<div class="cal-cell-top">
+  <div
+    class="fill-height"
+    [shAttachMenu]="appointmentMenu"
+    [shMenuData]="day.date"
+    [attr.date]="day.date"
+  >
+    <div class="cal-cell-top">
       <span class="cal-day-badge" *ngIf="day.badgeTotal > 0"
       >{{ day.badgeTotal }}</span
       >
-			<span class="cal-day-number"
-			>{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
-			>
-		</div>
-		<div class="cal-events">
-			<div
-					class="cal-event"
-					*ngFor="let event of day.events"
-					[style.backgroundColor]="event.color.primary"
-					[ngClass]="event?.cssClass"
-					(mouseenter)="highlightDay.emit({event: event})"
-					(mouseleave)="unhighlightDay.emit({event: event})"
-					[mwlCalendarTooltip]="event.title | calendarEventTitle:'monthTooltip':event"
-					[tooltipPlacement]="tooltipPlacement"
-					(click)="$event.stopPropagation(); eventClicked.emit({event: event})"
-			></div>
-		</div>
-	</div>
+      <span class="cal-day-number"
+      >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
+      >
+    </div>
+    <div class="cal-events">
+      <div
+        class="cal-event"
+        *ngFor="let event of day.events"
+        [style.backgroundColor]="event.color.primary"
+        [ngClass]="event?.cssClass"
+        (mouseenter)="highlightDay.emit({event: event})"
+        (mouseleave)="unhighlightDay.emit({event: event})"
+        [mwlCalendarTooltip]="event.title | calendarEventTitle:'monthTooltip':event"
+        [tooltipPlacement]="tooltipPlacement"
+        (click)="$event.stopPropagation(); eventClicked.emit({event: event})"
+      ></div>
+    </div>
+  </div>
 </ng-template>
 
 <!--week view hour template-->
 
 <ng-template
-    #weekHeaderTemplate
-	let-days="days"
-	let-locale="locale"
-	let-dayHeaderClicked="dayHeaderClicked"
+  #weekHeaderTemplate
+  let-days="days"
+  let-locale="locale"
+  let-dayHeaderClicked="dayHeaderClicked"
 >
-	<div class="cal-day-headers">
-		<div
-				class="cal-header"
-				*ngFor="let day of days"
-				[class.cal-past]="day.isPast"
-				[class.cal-today]="day.isToday"
-				[class.cal-future]="day.isFuture"
-				[class.cal-weekend]="day.isWeekend"
-				(click)="dayHeaderClicked.emit({day: day})"
-				[shAttachMenu]="appointmentMenu"
-				[shMenuData]="day.date"
-				[attr.date]="day.date"
-		>
-			<b>{{ day.date | calendarDate:'weekViewColumnHeader':locale }}</b><br/>
-			<span
-			>{{ day.date | calendarDate:'weekViewColumnSubHeader':locale }}</span
-			>
-		</div>
-	</div>
+  <div class="cal-day-headers">
+    <div
+      class="cal-header"
+      *ngFor="let day of days"
+      [class.cal-past]="day.isPast"
+      [class.cal-today]="day.isToday"
+      [class.cal-future]="day.isFuture"
+      [class.cal-weekend]="day.isWeekend"
+      (click)="dayHeaderClicked.emit({day: day})"
+      [shAttachMenu]="appointmentMenu"
+      [shMenuData]="day.date"
+      [attr.date]="day.date"
+    >
+      <b>{{ day.date | calendarDate:'weekViewColumnHeader':locale }}</b><br/>
+      <span
+      >{{ day.date | calendarDate:'weekViewColumnSubHeader':locale }}</span
+      >
+    </div>
+  </div>
 </ng-template>
 
 <ng-template
-    #weekViewHourSegment
-	let-segment="segment"
-	let-locale="locale"
-	let-segmentHeight="segmentHeight"
-	let-isTimeLabel="isTimeLabel"
+  #weekViewHourSegment
+  let-segment="segment"
+  let-locale="locale"
+  let-segmentHeight="segmentHeight"
+  let-isTimeLabel="isTimeLabel"
 >
-	<div
-			class="cal-hour-segment"
-			[style.height.px]="segmentHeight"
-			[class.cal-hour-start]="segment.isStart"
-			[class.cal-after-hour-start]="!segment.isStart"
-			[ngClass]="segment.cssClass"
-			[shAttachMenu]="appointmentMenu"
-			[shMenuData]="segment.date"
-			[attr.date]="segment.date"
-	>
-		<div class="cal-time" *ngIf="isTimeLabel">
-			{{ segment.date | calendarDate: 'weekViewHour':locale }}
-		</div>
-	</div>
+  <div
+    class="cal-hour-segment"
+    [style.height.px]="segmentHeight"
+    [class.cal-hour-start]="segment.isStart"
+    [class.cal-after-hour-start]="!segment.isStart"
+    [ngClass]="segment.cssClass"
+    [shAttachMenu]="appointmentMenu"
+    [shMenuData]="segment.date"
+    [attr.date]="segment.date"
+  >
+    <div class="cal-time" *ngIf="isTimeLabel">
+      {{ segment.date | calendarDate: 'weekViewHour':locale }}
+    </div>
+  </div>
 </ng-template>
 
 <!--DayHourSegment template-->
 <ng-template
-    #dayHourSegmentTemplate
-	let-segment="segment"
-	let-locale="locale"
-	let-segmentHeight="segmentHeight"
+  #dayHourSegmentTemplate
+  let-segment="segment"
+  let-locale="locale"
+  let-segmentHeight="segmentHeight"
 >
-	<div
-			class="cal-hour-segment"
-			[style.height.px]="segmentHeight"
-			[class.cal-hour-start]="segment.isStart"
-			[class.cal-after-hour-start]="!segment.isStart"
-			[ngClass]="segment.cssClass"
-			[shAttachMenu]="appointmentMenu"
-			[shMenuData]="segment.date"
-			[attr.date]="segment.date"
-	>
-		<div class="cal-time">
-			{{ segment.date | calendarDate: 'dayViewHour':locale }}
-		</div>
-	</div>
+  <div
+    class="cal-hour-segment"
+    [style.height.px]="segmentHeight"
+    [class.cal-hour-start]="segment.isStart"
+    [class.cal-after-hour-start]="!segment.isStart"
+    [ngClass]="segment.cssClass"
+    [shAttachMenu]="appointmentMenu"
+    [shMenuData]="segment.date"
+    [attr.date]="segment.date"
+  >
+    <div class="cal-time">
+      {{ segment.date | calendarDate: 'dayViewHour':locale }}
+    </div>
+  </div>
 </ng-template>
 
 <div class="page-container">
-	<div class="page-header">
-		<div class="col-md-4">
-			<div>
-				<button mat-raised-button
-				        [color]="action === 'prev' ? 'primary': null"
-				        mwlCalendarPreviousView
-				        data-cy="action-prev"
-				        (click)="action='prev'"
-				        [view]="view"
-				        [(viewDate)]="viewDate"
-				        (viewDateChange)="closeOpenMonthViewDay()"
-				        [excludeDays]="excludeDays"
-				>
-					Previous
-				</button>
-				<button mat-raised-button
-				        [color]="action === 'today' ? 'primary': null"
-				        mwlCalendarToday
-				        data-cy="action-today"
-				        (click)="action='today'"
-				        [(viewDate)]="viewDate"
-				>
-					Today
-				</button>
-				<button
-						mat-raised-button
-						[color]="action === 'next' ? 'primary': null"
-						mwlCalendarNextView
-						data-cy="action-next"
-						(click)="action='next'"
-						[view]="view"
-						[(viewDate)]="viewDate"
-						(viewDateChange)="closeOpenMonthViewDay()"
-						[excludeDays]="excludeDays"
-				>
-					Next
-				</button>
-			</div>
-		</div>
-		<div class="col-md-4">
-			<h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-		</div>
-		<div>
-			<div>
-				<button
-						mat-raised-button [color]="view === calendarView.Month ? 'primary': null"
-						data-cy="btn-month-view"
-						(click)="setView(calendarView.Month)"
-						[class.active]="view === calendarView.Month"
-				>
-					Month
-				</button>
-				<button
-						mat-raised-button [color]="view === calendarView.Week ? 'primary': null"
-						data-cy="btn-week-view"
-						(click)="setView(calendarView.Week)"
-						[class.active]="view === calendarView.Week"
-				>
-					Week
-				</button>
-				<button
-						mat-raised-button [color]="view === calendarView.Day ? 'primary': null"
-						data-cy="btn-day-view"
-						(click)="setView(calendarView.Day)"
-						[class.active]="view === calendarView.Day"
-				>
-					Day
-				</button>
-			</div>
-		</div>
-	</div>
-	<div [ngSwitch]="view" data-cy="calendar-content">
-		<mwl-calendar-month-view
-				*ngSwitchCase="calendarView.Month"
-				[viewDate]="viewDate"
-				[activeDayIsOpen]="activeDayIsOpen"
-				[excludeDays]="excludeDays"
-				[cellTemplate]="monthCellTemplate"
-		>
-		</mwl-calendar-month-view>
-		<mwl-calendar-week-view
-				*ngSwitchCase="calendarView.Week"
-				[viewDate]="viewDate"
-				[excludeDays]="excludeDays"
-				[currentTimeMarkerTemplate]="currentTimeMarkerTemplate"
-				[dayStartHour]="dayStartHour"
-				[dayEndHour]="dayEndHour"
-				[headerTemplate]="weekHeaderTemplate"
-				[hourSegmentTemplate]="weekViewHourSegment"
-		>
-		</mwl-calendar-week-view>
-		<mwl-calendar-day-view
-				*ngSwitchCase="calendarView.Day"
-				[viewDate]="viewDate"
-				[currentTimeMarkerTemplate]="currentTimeMarkerTemplate"
-				[dayStartHour]="dayStartHour"
-				[dayEndHour]="dayEndHour"
-				[hourSegmentTemplate]="dayHourSegmentTemplate"
-		>
-		</mwl-calendar-day-view>
-	</div>
+  <div class="page-header">
+    <div class="col-md-4">
+      <div>
+        <button mat-raised-button
+                [color]="action === 'prev' ? 'primary': null"
+                mwlCalendarPreviousView
+                data-cy="action-prev"
+                (click)="action='prev'"
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="closeOpenMonthViewDay()"
+                [excludeDays]="excludeDays"
+        >
+          Previous
+        </button>
+        <button mat-raised-button
+                [color]="action === 'today' ? 'primary': null"
+                mwlCalendarToday
+                data-cy="action-today"
+                (click)="action='today'"
+                [(viewDate)]="viewDate"
+        >
+          Today
+        </button>
+        <button
+          mat-raised-button
+          [color]="action === 'next' ? 'primary': null"
+          mwlCalendarNextView
+          data-cy="action-next"
+          (click)="action='next'"
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+          [excludeDays]="excludeDays"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div>
+    <div>
+      <div>
+        <button
+          mat-raised-button [color]="view === calendarView.Month ? 'primary': null"
+          data-cy="btn-month-view"
+          (click)="setView(calendarView.Month)"
+          [class.active]="view === calendarView.Month"
+        >
+          Month
+        </button>
+        <button
+          mat-raised-button [color]="view === calendarView.Week ? 'primary': null"
+          data-cy="btn-week-view"
+          (click)="setView(calendarView.Week)"
+          [class.active]="view === calendarView.Week"
+        >
+          Week
+        </button>
+        <button
+          mat-raised-button [color]="view === calendarView.Day ? 'primary': null"
+          data-cy="btn-day-view"
+          (click)="setView(calendarView.Day)"
+          [class.active]="view === calendarView.Day"
+        >
+          Day
+        </button>
+      </div>
+    </div>
+  </div>
+  <ng-template
+    #eventActionsTemplate
+    let-event="event">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item
+              *ngFor="let action of event.actions;"
+              (mwlClick)="action.onClick({event: event})">
+        <mat-icon>{{action.icon}}</mat-icon>
+        <span [innerHtml]="action.label"></span>
+      </button>
+    </mat-menu>
+  </ng-template>
+  <div [ngSwitch]="view" data-cy="calendar-content">
+    <mwl-calendar-month-view
+      *ngSwitchCase="calendarView.Month"
+      [events]="events"
+      [viewDate]="viewDate"
+      [activeDayIsOpen]="activeDayIsOpen"
+      [excludeDays]="excludeDays"
+      [cellTemplate]="monthCellTemplate"
+      [eventActionsTemplate]="eventActionsTemplate"
+      (dayClicked)="dayClicked($event.day)"
+
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="calendarView.Week"
+      [events]="events"
+      [viewDate]="viewDate"
+      [excludeDays]="excludeDays"
+      [currentTimeMarkerTemplate]="currentTimeMarkerTemplate"
+      [dayStartHour]="dayStartHour"
+      [dayEndHour]="dayEndHour"
+      [headerTemplate]="weekHeaderTemplate"
+      [hourSegmentTemplate]="weekViewHourSegment"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="calendarView.Day"
+      [events]="events"
+      [viewDate]="viewDate"
+      [currentTimeMarkerTemplate]="currentTimeMarkerTemplate"
+      [dayStartHour]="dayStartHour"
+      [dayEndHour]="dayEndHour"
+      [hourSegmentTemplate]="dayHourSegmentTemplate"
+    >
+    </mwl-calendar-day-view>
+  </div>
 </div>
 
 
