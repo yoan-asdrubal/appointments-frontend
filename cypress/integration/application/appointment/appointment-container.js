@@ -110,11 +110,11 @@ describe('Appointment Container', () => {
     cy.get('.cal-day-headers .cal-header').its(0).rightclick();
     checkMenuContext();
 
-    cy.get('mwl-calendar-week-view-hour-segment').its(0).rightclick();
+    cy.get('mwl-calendar-week-view-hour-segment').its(0).rightclick('topLeft');
     checkMenuContext();
 
     cy.get(`[data-cy="btn-day-view"]`).click();
-    cy.get('mwl-calendar-week-view-hour-segment').its(0).rightclick();
+    cy.get('mwl-calendar-week-view-hour-segment').its(0).rightclick('topLeft');
     checkMenuContext();
 
   });
