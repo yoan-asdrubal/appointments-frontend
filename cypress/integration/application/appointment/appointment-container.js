@@ -16,7 +16,7 @@ describe('Appointment Container', () => {
   });
 
   it('should change view mode when click on buttons view mode', () => {
-    cy.visit('/appointment');
+    // cy.visit('/appointment');
     const select = (type) => {
       cy.get(`[data-cy="btn-${type}-view"]`).click();
       cy.get(`[data-cy="btn-${type}-view"]`).should('have.class', 'active');
@@ -32,7 +32,7 @@ describe('Appointment Container', () => {
   });
 
   it('should show selected view mode with color primary and others with color default', function () {
-    cy.visit('/appointment');
+    // cy.visit('/appointment');
     cy.get(`[data-cy="btn-month-view"]`).should("have.class", 'mat-primary');
     cy.get(`[data-cy="btn-week-view"]`).should("not.have.class", 'mat-primary');
     cy.get(`[data-cy="btn-day-view"]`).should("not.have.class", 'mat-primary');
@@ -49,7 +49,7 @@ describe('Appointment Container', () => {
   });
 
   it('should show navigation date pressed with color primary and others with color default', function () {
-    cy.visit('/appointment');
+    // cy.visit('/appointment');
     cy.get(`[data-cy="action-today"]`).should("have.class", 'mat-primary');
     cy.get(`[data-cy="action-prev"]`).should("not.have.class", 'mat-primary');
     cy.get(`[data-cy="action-next"]`).should("not.have.class", 'mat-primary');
@@ -67,7 +67,7 @@ describe('Appointment Container', () => {
   });
 
   it('should not include weekends when month and week view mode', function () {
-    cy.visit('/appointment');
+    // cy.visit('/appointment');
 
     cy.get('mwl-calendar-month-view-header .cal-weekend').should('have.length', 0);
 
@@ -78,7 +78,7 @@ describe('Appointment Container', () => {
   });
 
   it('should show hours between 8:00 AM and 5:00 PM', function () {
-    cy.visit('/appointment');
+    // cy.visit('/appointment');
     cy.get(`[data-cy="btn-week-view"]`).click();
     cy.get('.cal-time-label-column .cal-hour-segment.cal-hour-start').its(0).should('contain.text', '8 AM');
     cy.get('.cal-time-label-column .cal-hour-segment.cal-hour-start').its('length').then((size) => {
@@ -93,8 +93,8 @@ describe('Appointment Container', () => {
   });
 
   it('should show dialog to add appointment from context menu', function () {
-    cy.visit('/appointment');
-
+    // cy.visit('/appointment');
+    cy.get(`[data-cy="btn-month-view"]`).click();
     const checkMenuContext = () => {
       cy.get('.sh-context-menu').should('have.length', 1);
       cy.get('.sh-context-menu--item').its(0).should('contain.text', 'Add appointment');
@@ -120,9 +120,9 @@ describe('Appointment Container', () => {
   });
 
   it('should add appointment  any day in MONTH view mode', function () {
-    cy.visit('/appointment');
+    // cy.visit('/appointment');
     let pos = 0;
-
+    cy.get(`[data-cy="btn-month-view"]`).click();
     cy.get('mwl-calendar-month-cell').its('length')
       .then((length) => {
         pos = (Math.floor((Math.random() * length)));
