@@ -107,7 +107,7 @@ export class AppointmentContainerComponent implements OnInit, OnDestroy {
         map((apps: AppointmentModel[]) => {
           return apps.map(ap => {
               const date = this.datePipe.transform(ap.date, 'MM-dd-yyyy');
-              console.log('ap date', ap, date);
+              // console.log('ap date', ap, date);
               return {
                 start: new Date(`${date} ${ap.timeInit}`),
                 end: new Date(`${date} ${ap.timeEnd}`),
