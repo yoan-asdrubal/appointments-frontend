@@ -5,37 +5,48 @@ import {EntityState} from '@datorama/akita';
 import {DatasourceOption} from '@app/core/datasource/domain/datasource.model';
 import {DatasourceService} from '@app/core/datasource/domain/datasource.service';
 import {tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 export abstract class BaseService<T extends BaseState | EntityState, M extends BaseModel> {
 
-    constructor(private store: BaseStore<T>
-        , private query: BaseQuery<T>
-        , private datasource: DatasourceService) {
-    }
+  constructor(private store: BaseStore<T>
+    , private query: BaseQuery<T>
+    , private datasource: DatasourceService) {
+  }
 
-    abstract createFunction(): Function;
+  abstract createFunction(): Function;
 
-    abstract model(): string;
+  abstract model(): string;
 
-    list(options: DatasourceOption = {}, action = 'LIST') {
-        this.datasource.request(this.model(), action, options)
-            .pipe(
-                tap(data => this.store.upsertMany(data))
-            )
-            .subscribe();
+  list(options: DatasourceOption = {}, action = 'LIST') {
+    this.datasource.request(this.model(), action, options)
+      .pipe(
+        tap(data => this.store.upsertMany(data))
+      )
+      .subscribe();
 
-        return this.query.selectAll();
-    }
+    return this.query.selectAll();
+  }
 
-    /**
-     * fetch(action = 'LIST', options: ModelOption = {}): Observable<T[]> {
+
+  add(model: T | any, options: DatasourceOption = {}, action = 'POST'): Observable<T> {
+    options.body = model;
+    return this.datasource.request(this.model(), action, options)
+      .pipe(
+        tap(data => this.store.add(data))
+      );
+  }
+
+
+  /**
+   * fetch(action = 'LIST', options: ModelOption = {}): Observable<T[]> {
 
 		this.dispatchAction(ListModelAction, action, options);
 
 		return this.selectList();
 	}
 
-     fetchTable(tableId: string, options: ModelOption = {}, force = false): Observable<T[]> {
+   fetchTable(tableId: string, options: ModelOption = {}, force = false): Observable<T[]> {
 		const pageCode = options.pageCode || '';
 		if (force) {
 			const subscription = this._store.select(getPageableFor(tableId, pageCode))
@@ -59,7 +70,7 @@ export abstract class BaseService<T extends BaseState | EntityState, M extends B
 			);
 	}
 
-     fetchById(id: number | string | any, action = 'GET', options: ModelOption = {ds: {modelId: id, urlParams: {id: id}}}): Observable<T> {
+   fetchById(id: number | string | any, action = 'GET', options: ModelOption = {ds: {modelId: id, urlParams: {id: id}}}): Observable<T> {
 
 		this.dispatchAction(GetSingleModelAction, action, options);
 
@@ -72,7 +83,7 @@ export abstract class BaseService<T extends BaseState | EntityState, M extends B
 	}
 
 
-     selectById(id: string): Observable<T> {
+   selectById(id: string): Observable<T> {
 		return this.selectMap().pipe(
 			map(val => val[id])
 			, filter(model => !!model)
@@ -80,20 +91,20 @@ export abstract class BaseService<T extends BaseState | EntityState, M extends B
 		);
 	}
 
-     selectPage(tableId: string, code: any = ''): Observable<T[]> {
+   selectPage(tableId: string, code: any = ''): Observable<T[]> {
 		return this._store.select(getModelDataByTable(this.model(), tableId, code));
 	}
 
-     selectList(): Observable<T[]> {
+   selectList(): Observable<T[]> {
 
 		return this._store.select(getModelList(this.model()));
 	}
 
-     selectMap(): Observable<{ [id: string]: T }> {
+   selectMap(): Observable<{ [id: string]: T }> {
 		return this._store.select(getModelMap(this.model()));
 	}
 
-     selectOrFetch(action = 'LIST', options: ModelOption = {}): Observable<T[]> {
+   selectOrFetch(action = 'LIST', options: ModelOption = {}): Observable<T[]> {
 
 		const subscription = this.selectList()
 			.pipe(
@@ -107,7 +118,7 @@ export abstract class BaseService<T extends BaseState | EntityState, M extends B
 		return this.selectList();
 	}
 
-     refresh(id: number, action = 'GET', options: ModelOption = {ds: {urlParams: {id: id}}}): Observable<T> {
+   refresh(id: number, action = 'GET', options: ModelOption = {ds: {urlParams: {id: id}}}): Observable<T> {
 
 		return this.fetchById(id, action, options)
 			.pipe(
@@ -115,18 +126,14 @@ export abstract class BaseService<T extends BaseState | EntityState, M extends B
 			);
 	}
 
-     add(model: T | any, options: ModelOption = {}): Observable<T> {
-		this.dispatchAction(AddModelAction, 'POST', this._mixOptions(options, {body: model}));
-		return UserActions.stopUntil(this.onModelAdded(), this.onError());
-	}
 
 
-     update(options: ModelOption): Observable<T> {
+   update(options: ModelOption): Observable<T> {
         this.dispatchAction(UpdateModelAction, 'PUT', options);
         return UserActions.stopUntil(this.onModelUpdated(), this.onError());
     }
 
-     patch(data: any, id: any, options: ModelOption = {}): Observable<any> {
+   patch(data: any, id: any, options: ModelOption = {}): Observable<any> {
         this.dispatchAction(UpdateModelAction, 'PATCH', this._mixOptions(options, {
             modelId: id,
             body: data,
@@ -136,16 +143,16 @@ export abstract class BaseService<T extends BaseState | EntityState, M extends B
         return UserActions.stopUntil(this.onModelUpdated(), this.onError());
     }
 
-     remove(model: T, options: ModelOption = {}): Observable<boolean> {
+   remove(model: T, options: ModelOption = {}): Observable<boolean> {
         this.dispatchAction(DeleteModelAction, 'DELETE', options);
         return UserActions.stopUntil(this.onModelDelete(), this.onError());
     }
 
-     set(model: T) {
+   set(model: T) {
         this._store.dispatch(new GetSingleModelSuccessAction(this.model(), 'GET', model));
 
     }
 
-     */
+   */
 }
 

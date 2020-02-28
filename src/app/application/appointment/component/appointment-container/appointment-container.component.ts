@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppointmentService} from '@app/core/model/appointment/appointment.service';
 import {Observable} from 'rxjs';
 import {AppointmentModel} from '@app/core/model/appointment/appointment.model';
@@ -7,15 +7,17 @@ import {MatDialog} from '@angular/material/dialog';
 import {AppointmentDialogComponent} from '@app/application/appointment/component/appointment-dialog/appointment-dialog.component';
 import {
   startOfDay,
-  endOfDay,
   subDays,
   addDays,
   endOfMonth,
   isSameDay,
   isSameMonth,
-  addHours
+  addHours,
 } from 'date-fns';
 import {CalendarEvent, EventAction, WeekDay, MonthView, MonthViewDay, ViewPeriod} from 'calendar-utils';
+import {filter, map, tap} from 'rxjs/operators';
+import {DatePipe} from '@angular/common';
+import {untilDestroyed} from 'ngx-take-until-destroy';
 
 const colors: any = {
   red: {
@@ -37,9 +39,10 @@ const colors: any = {
   templateUrl: './appointment-container.component.html',
   styleUrls: ['./appointment-container.component.scss']
 })
-export class AppointmentContainerComponent implements OnInit {
+export class AppointmentContainerComponent implements OnInit, OnDestroy {
   appointments$: Observable<AppointmentModel[]>;
 
+  datePipe = new DatePipe('EN');
 
   view: CalendarView = CalendarView.Month;
 
@@ -90,31 +93,6 @@ export class AppointmentContainerComponent implements OnInit {
         afterEnd: true
       },
       draggable: true
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
     }
   ];
 
@@ -123,6 +101,36 @@ export class AppointmentContainerComponent implements OnInit {
 
   ngOnInit() {
     this.appointments$ = this.appointmentS.list();
+    this.appointments$
+      .pipe(
+        untilDestroyed(this),
+        map((apps: AppointmentModel[]) => {
+          return apps.map(ap => {
+              const date = this.datePipe.transform(ap.date, 'MM-dd-yyyy');
+              console.log('ap date', ap, date);
+              return {
+                start: new Date(`${date} ${ap.timeInit}`),
+                end: new Date(`${date} ${ap.timeEnd}`),
+                title: ap.subject,
+                color: colors.red,
+                actions: this.actions,
+                allDay: false,
+                resizable: {
+                  beforeStart: false,
+                  afterEnd: false
+                },
+                draggable: false
+              };
+            }
+          )
+            ;
+        }),
+        tap((events: CalendarEvent[]) => this.events = events)
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy(): void {
   }
 
   dayClicked({date, events}: { date: Date; events: any[] }): void {
@@ -159,8 +167,13 @@ export class AppointmentContainerComponent implements OnInit {
       data: {date: date}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-    });
+    dialogRef.afterClosed()
+      .pipe(
+        filter(result => !!result)
+      )
+      .subscribe(result => {
+        console.log('result', result);
+        this.appointmentS.add(result).subscribe();
+      });
   }
 }

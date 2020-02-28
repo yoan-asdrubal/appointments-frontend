@@ -37,7 +37,7 @@
     [attr.date]="day.date"
   >
     <div class="cal-cell-top">
-      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0"
+      <span class="cal-day-badge" [attr.data-cy]="day.badgeTotal"
       >{{ day.badgeTotal }}</span
       >
       <span class="cal-day-number"
@@ -244,6 +244,7 @@
       [dayStartHour]="dayStartHour"
       [dayEndHour]="dayEndHour"
       [headerTemplate]="weekHeaderTemplate"
+      [eventActionsTemplate]="eventActionsTemplate"
       [hourSegmentTemplate]="weekViewHourSegment"
     >
     </mwl-calendar-week-view>
@@ -254,11 +255,12 @@
       [currentTimeMarkerTemplate]="currentTimeMarkerTemplate"
       [dayStartHour]="dayStartHour"
       [dayEndHour]="dayEndHour"
+      [eventActionsTemplate]="eventActionsTemplate"
       [hourSegmentTemplate]="dayHourSegmentTemplate"
     >
     </mwl-calendar-day-view>
   </div>
 </div>
-
+<!--{{events | json}}-->
 
 
